@@ -1,0 +1,18 @@
+{
+  "name": "generator",
+  "description": "BVD data generator",
+  "version": "0.0.1",
+  "author": "HP-SW, OpsBridge",
+  "engines": {
+    "node": "^0.12.0"
+  },
+  "dependencies": {
+    "colors": "0.6.x",
+    "express": "^4.12.4",
+    "lodash": "latest",
+    "optimist": "0.3.x",
+    "proc-noise": "0.0.1",
+    "request": "latest",
+    "xml2js": "~0.4.4"
+  }
+}
