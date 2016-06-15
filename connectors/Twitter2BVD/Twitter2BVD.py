@@ -3,7 +3,7 @@ from urllib.parse import quote_plus
 from base64 import b64encode
 import json
 import time
-from TwitterAdapterForBVDConfig import hashtags, sleep, apiKey, apiSecret, bvdUrl, bvdApiKey
+from Twitter2BVDConfig import hashtags, sleep, apiKey, apiSecret, bvdUrl, bvdApiKey
 
 # comment out below two lines for verbose http
 #import http.client
