@@ -44,4 +44,5 @@ Now that you have data arrived at your BVD instance you can simply map it to you
 Note: The hashtag name is used as BVD *dimension*
 
 ######Demo
-![Tweets in BVD](/tweets4BVD.png?raw=true "Tweets in BVD")
+https://github.com/hadjiski/ColorYourData/blob/patch-2/connectors/Twitter2BVD/tweets4BVD.png
+[Tweets in BVD](tweets4BVD.png "Tweets in BVD")
