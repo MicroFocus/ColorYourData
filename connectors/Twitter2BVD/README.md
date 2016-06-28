@@ -42,3 +42,6 @@ This will keep pulling new tweets for your hashtags from Twitter in nearly real 
 Now that you have data arrived at your BVD instance you can simply map it to your *news feed* widgets of your dashboards.
 
 Note: The hashtag name is used as BVD *dimension*
+
+######Demo
+![Tweets in BVD](/tweets4BVD.png?raw=true "Tweets in BVD")
