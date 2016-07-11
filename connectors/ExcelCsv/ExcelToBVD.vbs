@@ -40,7 +40,7 @@ Set objExcel = Wscript.CreateObject("Excel.Application")
 
 Set objWorkbook = objExcel.Workbooks.Open(CSVPath)
 
-objExcel.visible=False
+objExcel.visible = False
 
 rowCount=objExcel.ActiveWorkbook.Sheets(1).UsedRange.Rows.count
 colCount=objExcel.ActiveWorkbook.Sheets(1).UsedRange.Columns.count
@@ -68,6 +68,10 @@ for i=1 to rowCount  step 1
   Next 
 
 Next
+
+'Close the excel file
+objExcel.DisplayAlerts = False
+objWorkbook.Close False
  
 Function HTTPPost(sUrl, sRequest)
   Wscript.Echo "Sending sample data to " & sUrl
