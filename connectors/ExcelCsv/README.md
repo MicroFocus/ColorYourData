@@ -1,4 +1,4 @@
-# Read cells from Excel files
+## Send data from Excel files to BVD
 
 The code in this section reads data from Excel files (xlsx or csv) and sends it to BVD.
 Row and column number are used as the dimensions to assign cell values to BVD data channels.
