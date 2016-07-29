@@ -23,7 +23,7 @@ jsonfile.readFile(file, function(err, obj) {
         _.each(_.keys(gen.sample), function(prop) {
           sample[prop] = calcValue(gen.sample[prop]);
         })        
-      }, gen.frequency, obj.tolerance, gen.dims, gen.tags
+      }, gen.frequency, gen.tolerance, gen.dims, gen.tags
     );
     sender.run();
   });
