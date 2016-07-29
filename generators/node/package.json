@@ -9,6 +9,7 @@
   "dependencies": {
     "colors": "0.6.x",
     "express": "^4.12.4",
+    "jsonfile": "^2.3.1",
     "lodash": "latest",
     "optimist": "0.3.x",
     "proc-noise": "0.0.1",

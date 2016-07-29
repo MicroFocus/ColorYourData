@@ -1,0 +1,32 @@
+{
+  "host": "bvd.host.com",
+  "port": 12345,
+  "apiKey": "0123456789ABCDEF",
+  "generators": [
+    {
+      "name":"gen1",
+      "sample": {
+        "host": ["Host A", "Host B", "Host C"],
+        "metric": ["CPU Load", "Disk Util"],
+        "value": {"range": [0,100]}
+      },
+      "frequency": 2000, 
+      "tolerance": 500,
+      "tags":"",
+      "dims":"host,metric"
+    },
+    {
+      "name":"gen2",
+      "sample": {
+        "category": ["Online", "Retail"],
+        "type": "Revenue, ",
+        "value": {"range": [70,80]}
+      },          
+      "frequency": 5000, 
+      "tolerance": 100,
+      "tags":"",
+      "dims":"category,type"
+    }
+
+  ]
+}
