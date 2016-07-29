@@ -8,10 +8,14 @@ npm install
 ## Running
 ### Basic data generator 
 <pre><code>
-node basicGenerator.js host:port ApiKey 
+node basicGenerator.js <config file>
 </code></pre>
-where host:port and ApiKey is related to the BVD instance/tenant 
-you're sending the data to.
+Specify a config file with basic info like host port and API key, 
+plus add a list of generators with samples and update frequency.
+See config.json for an example.
+
+When spcifying the value of sample properties, an array describes a set of possible values, where the generator picks one.
+You can also specify numeric ranges with a range property. The array describes the start and end of the range.
 
 ### AO-Bank sample data generator 
 <pre><code>
