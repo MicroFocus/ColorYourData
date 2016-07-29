@@ -8,7 +8,7 @@ npm install
 ## Running
 ### Basic data generator 
 <pre><code>
-node basicGenerator.js <config file>
+node basicGenerator.js config_file.json
 </code></pre>
 Specify a config file with basic info like host port and API key, 
 plus add a list of generators with samples and update frequency.
