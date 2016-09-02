@@ -3,6 +3,16 @@
 This document complements the tips and tricks section in the online help for BVD.
 It will have a higher change rate. So you might want to check back frequently.
 
+##Table of Contents
+
+* [Tip: Designing dashboards for a specific device aspect ratio](#tip-designing-dashboards-for-a-specific-device-aspect-ratio)
+* [Tip: Controlling global CSS settings for dashboard views](#tip-controlling-global-css-settings-for-dashboard-views)
+* [Tip: Controlling CSS properties of individual dashboards](#tip-controlling-css-properties-of-individual-dashboards)
+* [Tip: Feed Widget with adaptive text size](#tip-feed-widget-with-adaptive-text-size)
+* [Tip: Specifying fonts that work on all devices](#tip-specifying-fonts-that-work-on-all-devices)
+* [Tip: Show, hide or dim parts of your dashboard](#tip-show-hide-or-dim-parts-of-your-dashboard)
+
+
 ##Tip: Designing dashboards for a specific device aspect ratio
 One of the most important aspect of a BVD dashboard is the optimal alignment with the aspect ratio of your target device.
 E.g. you don't want to create a nearly squared dashboard to be shown on a 16:9 screen.
