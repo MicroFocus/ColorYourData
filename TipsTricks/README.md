@@ -21,7 +21,7 @@ Scale the frame according to the rest of your drawing and place all your element
 After that arrangement you can remove the frame.
 
 Finally (important!) go to the 'Design' ribbon and select the 'Size' icon.
-Go down and click 'Fit to drawing'. Now Visio has adjusted the document size to wrap all your alements,
+Go down and click 'Fit to drawing'. Now Visio has adjusted the document size to wrap all your elements,
 which are arranged in a 16:9 (or 4:3) frame.
 
 Now save, export and upload and your dashboard should fill in all space of the target device.
@@ -95,11 +95,10 @@ To use a Google font in Visio you have to download and install the corresponding
 
 ##Tip: Show, hide or dim parts of your dashboard
 If you want to hide areas of your dashboard or dim their color saturation as a consequence
-of a data change, then use the Status Visiblity Group widget. But instead of grouping the widgets you want to hide,
+of a data change, then use the Status Visibility Group widget. But instead of grouping the widgets you want to hide,
 the trick is to create a white shape that overlays that part of your dashboard you wnat to hide or dim.
-Next is to control the visibility of that new shape with Visiblity Group widget.
+Next is to control the visibility of that new shape with Visibility Group widget.
 
-In order to dim the area, you simply asign a transparancy effect to the covering shape.
+In order to dim the area, you simply assign a transparency effect to the covering shape.
 In my example the shape was white assumed that the background of your dashboard is also white.
-
 
