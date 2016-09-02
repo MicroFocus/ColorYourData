@@ -3,7 +3,7 @@
 This document complements the tips and tricks section in the online help for BVD.
 It will have a higher change rate. So you might want to check back frequently.
 
-##Tip: Designing for a specific device aspect ratio
+##Tip: Designing dashboards for a specific device aspect ratio
 One of the most important aspect of a BVD dashboard is the optimal alignment with the aspect ratio of your target device.
 E.g. you don't want to create a nearly squared dashboard to be shown on a 16:9 screen.
 For that purpose we created a set of frames as shapes in the BVD stencil. These frames maintain a preset ratio (e.g. 4:3, 16:9).
