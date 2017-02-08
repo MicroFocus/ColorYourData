@@ -43,4 +43,6 @@ Now that you have data arrived at your BVD instance you can simply map it to you
 Note: The *routeNum* is used as BVD *dimension*
 
 ######Demo
-[Traffic info for a round trip in BVD](tweets4BVD.png "Tweets in BVD")
+[Traffic info for a round trip in BVD](gmapsBvd1.png "round trip traffic info1")
+[BVD link refers to Gmaps origin A -> destination B](gmapsBvd2.png "round trip traffic info2")
+[BVD link refers to Gmaps for the way back origin B -> destination A](gmapsBvd3.png "round trip traffic info3")
