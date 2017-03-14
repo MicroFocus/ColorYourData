@@ -1,7 +1,8 @@
 {
-  "host": "bvd.host.com",
-  "port": 12345,
-  "apiKey": "0123456789ABCDEF",
+  "host": "localhost",
+  "port": 4001,
+  "protocol": "http",
+  "apiKey": "081508150815081508150815",
   "generators": [
     {
       "name":"gen1",
@@ -10,7 +11,7 @@
         "metric": ["CPU Load", "Disk Util"],
         "value": {"range": [0,100]}
       },
-      "frequency": 2000, 
+      "frequency": 5000, 
       "tolerance": 500,
       "tags":"",
       "dims":"host,metric"

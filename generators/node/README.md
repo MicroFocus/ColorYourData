@@ -10,9 +10,11 @@ npm install
 <pre><code>
 node basicGenerator.js config_file.json
 </code></pre>
-Specify a config file with basic info like host port and API key, 
+Specify a config file with basic info like host, port, protocol and API key, 
 plus add a list of generators with samples and update frequency.
 See config.json for an example.
+If you omit the port it will use the default according to the schema.
+If you omit the schema, http is used.
 
 When spcifying the value of sample properties, an array describes a set of possible values, where the generator picks one.
 You can also specify numeric ranges with a range property. The array describes the start and end of the range.
