@@ -8,15 +8,20 @@ var jsonfile = require('jsonfile');
 var
   address = 'localhost',
   apiKey = '0815',
-  file = 'config.json';
+  file = 'config.json',
+  protocol = 'http';
 
 if (process.argv[2]) {
   file = process.argv[2];
 }
 
 jsonfile.readFile(file, function(err, obj) {
-  address = obj.host + ':' + obj.port;
+  if (obj.port)
+    address = obj.host + ':' + obj.port;
+  else
+    address = obj.host;
   apiKey = obj.apiKey;
+  protocol = obj.protocol || protocol;
   _.each(obj.generators, function(gen) {
     var sender = new GenericSender(
       function(sample) {
@@ -54,7 +59,7 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
     var evt = new Event();
     fun(evt);
 
-    var urlStr = 'http://' + address + '/api/submit/' + apiKey;
+    var urlStr = protocol + '://' + address + '/bvd-receiver/api/submit/' + apiKey;
 
     if (!_.isEmpty(dims)) {
 	    urlStr += '/dims/' + dims;
