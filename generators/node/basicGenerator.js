@@ -76,7 +76,8 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
           'X-ApiKey': apiKey
         },
         body: evt,
-        json: true
+        json: true,
+        rejectUnauthorized: false
       },
       function(error, response, body) {
         if (error) {
