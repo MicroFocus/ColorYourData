@@ -1,9 +1,9 @@
-#Tips & Tricks when using BVD
+# Tips & Tricks when using BVD
 
 This document complements the tips and tricks section in the online help for BVD.
 It will have a higher change rate. So you might want to check back frequently.
 
-##Table of Contents
+## Table of Contents
 
 * [Tip: Designing dashboards for a specific device aspect ratio](#tip-designing-dashboards-for-a-specific-device-aspect-ratio)
 * [Tip: Controlling global CSS settings for dashboard views](#tip-controlling-global-css-settings-for-dashboard-views)
@@ -13,7 +13,7 @@ It will have a higher change rate. So you might want to check back frequently.
 * [Tip: Show, hide or dim parts of your dashboard](#tip-show-hide-or-dim-parts-of-your-dashboard)
 
 
-##Tip: Designing dashboards for a specific device aspect ratio
+## Tip: Designing dashboards for a specific device aspect ratio
 One of the most important aspect of a BVD dashboard is the optimal alignment with the aspect ratio of your target device.
 E.g. you don't want to create a nearly squared dashboard to be shown on a 16:9 screen.
 For that purpose we created a set of frames as shapes in the BVD stencil. These frames maintain a preset ratio (e.g. 4:3, 16:9).
@@ -26,7 +26,7 @@ which are arranged in a 16:9 (or 4:3) frame.
 
 Now save, export and upload and your dashboard should fill in all space of the target device.
 
-##Tip: Controlling global CSS settings for dashboard views
+## Tip: Controlling global CSS settings for dashboard views
 Using the System Settings page behind the wrench icon you can specify CSS properties that apply to all loaded dashboard views including
 the masthead. For example you can apply CSS properties for feed items embedded in the feed widget.
 
@@ -39,7 +39,7 @@ For example the following can be used to control the feed items
 
 To learn the DOM structure of the feed items, have a look at your browsers inspect functionality.
 
-##Tip: Controlling CSS properties of individual dashboards
+## Tip: Controlling CSS properties of individual dashboards
 If you need to have different CSS settings for your dashboards the above method does not work. 
 However you can further constrain the selection of dashboards with CSS attribute selection.
 
@@ -55,7 +55,7 @@ The example below applies feed-item CSS only to a dashboard with the name 'MyDas
 There are more variants of the attribute selector, for example to select with a name pattern rather than
 the full name.
 
-##Tip: Feed Widget with adaptive text size
+## Tip: Feed Widget with adaptive text size
 The BVD feed widget is a nice way of describing lists with HTML and CSS.
 However they do not scale with the rest of the dashboard. That means all SVG based drawings scale with the size of the screen,
 but HTML text in feeds stay fixed according their CSS specs.
@@ -78,7 +78,7 @@ Where
 The scale effect will not be identical to the surrounding SVG, 
 but it helps to compensate the difference between SVG and HTML.
 
-##Tip: Specifying fonts that work on all devices
+## Tip: Specifying fonts that work on all devices
 For BVD to be able to render the text as designed in Visio, 
 you must make the fonts used in Visio available to the web browser where you view the dashboards. 
 If the web browser does not have access to the fonts, the system default fonts are used.
@@ -93,7 +93,7 @@ BVD then directs the browser to load the fonts from http://www.google.com/fonts 
 
 To use a Google font in Visio you have to download and install the corresponding TTF file before starting Visio.
 
-##Tip: Show, hide or dim parts of your dashboard
+## Tip: Show, hide or dim parts of your dashboard
 If you want to hide areas of your dashboard or dim their color saturation as a consequence
 of a data change, then use the Status Visibility Group widget. But instead of grouping the widgets you want to hide,
 the trick is to create a white shape that overlays that part of your dashboard you wnat to hide or dim.
