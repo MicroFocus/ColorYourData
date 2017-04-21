@@ -5,7 +5,7 @@
   "apiKey": "081508150815081508150815",
   "generators": [
     {
-      "name":"gen1",
+      "name":"Range fluid value",
       "sample": {
         "host": ["Host A", "Host B", "Host C"],
         "metric": ["CPU Load", "Disk Util"],
@@ -17,17 +17,30 @@
       "dims":"host,metric"
     },
     {
-      "name":"gen2",
+      "name":"One of a set value",
       "sample": {
         "category": ["Online", "Retail"],
-        "type": "Revenue, ",
-        "value": {"range": [70,80]}
+        "type": "Status",
+        "value": ["good", "bad", "medium"]
+      },          
+      "frequency": 5000, 
+      "tolerance": 100,
+      "tags":"",
+      "dims":"category,type"
+    },
+    {
+      "name":"Growing/shrinking value over given step count",
+      "sample": {
+        "category": ["Online", "Retail"],
+        "type": "Revenue",
+        "value": {"range": [70,80], "incr": 5, "steps": 10}
       },          
       "frequency": 5000, 
       "tolerance": 100,
       "tags":"",
       "dims":"category,type"
     }
+
 
   ]
 }

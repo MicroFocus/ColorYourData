@@ -39,8 +39,19 @@ function calcValue(obj) {
   if (_.isNumber(obj)) return obj;
   if (_.isArray(obj)) return _.sample(obj);
   if (obj.range) {
+    if (!obj._offset)
+      obj._offset = 0;
+    if (!obj._idx)
+      obj._idx = 0;
+    if (obj.incr)
+      obj._offset += obj.incr;
+    if (obj._idx === obj.steps) {
+      obj._idx = -1;
+      obj._offset = 0;
+    }
+    obj._idx++;
     var range = Math.abs(obj.range[0] - obj.range[1]);  
-    return Math.random() * range + obj.range[0];
+    return Math.random() * range + obj.range[0] + obj._offset;
   }
 }
 
