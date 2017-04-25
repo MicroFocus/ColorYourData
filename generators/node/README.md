@@ -31,18 +31,24 @@ As value range with auto increment by give value (incr) and number of steps (ste
 "value": {"range": [70,80], "incr": 5, "steps": 10}
 </pre>
 
+The incremental change of values normally starts with the start of the generator and loops over the steps. The start can be triggered by calling a trigger URL using curl or your browser. To do that specify an additional trigger property like so:
+<pre>
+"value": {"range": [70,80], "incr": 5, "steps": 10, "trigger": "foo"}
+</pre>
+With this setup a call of <code>http://localhost:55123/foo</code> will start the increment once for the given number of steps.
+
 With BVD 10.61, the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
 
 In case you need to specify a proxy, please do so using environment variables like 
-<pre><code>
+<pre>
 HTTP_PROXY / http_proxy
 HTTPS_PROXY / https_proxy
-</code></pre>
+</pre>
 
 ### AO-Bank sample data generator 
-<pre><code>
+<pre>
 node ao_bank_gen.js host:port ApiKey 
-</code></pre>
+</pre>
 This generator drives the sample dashboards available from the 
 [HPE Live Network](https://hpln.hpe.com/product/business-value-dashboard/content)
 

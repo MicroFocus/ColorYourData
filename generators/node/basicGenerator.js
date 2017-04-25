@@ -12,6 +12,17 @@ var
   protocol = 'http',
   prefix;
 
+// external trigger server
+var 
+  express = require("express"),
+  app = express(),
+  port = 55123;
+
+app.listen(port, function () {
+  console.log("Listening on " + port);
+});
+
+
 if (process.argv[2]) {
   file = process.argv[2];
 }
@@ -45,14 +56,30 @@ function calcValue(obj) {
     if (!obj._offset)
       obj._offset = 0;
     if (!obj._idx)
-      obj._idx = 0;
-    if (obj.incr)
+      obj._idx = -1;
+    if (!obj.trigger) obj._running = true;
+    if (obj.trigger && !obj._route) {
+      app.get('/'+obj.trigger, function(req, res) {
+        if (!obj._running) {
+          obj._running = true;
+          res.send('trigger started: '+obj.trigger);
+        }
+        else {
+          res.send('trigger already running: '+obj.trigger);
+        }
+      });
+      obj._route = true;
+      console.log('route defined: '+obj.trigger);
+    }
+    if (obj.incr && obj._running) {
       obj._offset += obj.incr;
+      obj._idx++;
+    }
     if (obj._idx === obj.steps) {
       obj._idx = -1;
       obj._offset = 0;
+      if (obj._route) obj._running = false;
     }
-    obj._idx++;
     var range = Math.abs(obj.range[0] - obj.range[1]);  
     return Math.random() * range + obj.range[0] + obj._offset;
   }

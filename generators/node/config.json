@@ -34,14 +34,12 @@
       "sample": {
         "category": ["Online", "Retail"],
         "type": "Revenue",
-        "value": {"range": [70,80], "incr": 5, "steps": 10}
-      },          
+        "value": {"range": [70,80], "incr": 5, "steps": 10, "trigger": "foo"}
+      },
       "frequency": 5000, 
       "tolerance": 100,
       "tags":"",
       "dims":"category,type"
     }
-
-
   ]
 }
