@@ -53,11 +53,12 @@ function calcValue(obj) {
   if (_.isNumber(obj)) return obj;
   if (_.isArray(obj)) return _.sample(obj);
   if (obj.range) {
-    if (!obj._offset)
+    if (obj._offset == undefined)
       obj._offset = 0;
-    if (!obj._idx)
+    if (obj._idx == undefined)
       obj._idx = -1;
-    if (!obj.trigger) obj._running = true;
+    if (obj.trigger == undefined)
+      obj._running = true;
     if (obj.trigger && !obj._route) {
       app.get('/'+obj.trigger, function(req, res) {
         if (!obj._running) {
@@ -78,9 +79,11 @@ function calcValue(obj) {
     if (obj._idx === obj.steps) {
       obj._idx = -1;
       obj._offset = 0;
-      if (obj._route) obj._running = false;
+      if (obj._route)
+        obj._running = false;
     }
     var range = Math.abs(obj.range[0] - obj.range[1]);  
+    console.log(JSON.stringify(obj));
     return Math.random() * range + obj.range[0] + obj._offset;
   }
 }
