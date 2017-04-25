@@ -83,7 +83,7 @@ function calcValue(obj) {
         obj._running = false;
     }
     var range = Math.abs(obj.range[0] - obj.range[1]);  
-    console.log(JSON.stringify(obj));
+    //console.log(JSON.stringify(obj));
     return Math.random() * range + obj.range[0] + obj._offset;
   }
 }
