@@ -11,6 +11,7 @@
     "express": "^4.12.4",
     "jsonfile": "^2.3.1",
     "lodash": "latest",
+    "numeral": "^2.0.6",
     "optimist": "0.3.x",
     "proc-noise": "0.0.1",
     "request": "latest",
