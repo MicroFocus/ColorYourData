@@ -4,6 +4,7 @@ var os       = require('os');
 var request  = require('request');
 var _        = require('lodash');
 var jsonfile = require('jsonfile');
+var numeral  = require('numeral');
 
 var
   address = 'localhost',
@@ -84,7 +85,10 @@ function calcValue(obj) {
     }
     var range = Math.abs(obj.range[0] - obj.range[1]);  
     //console.log(JSON.stringify(obj));
-    return Math.random() * range + obj.range[0] + obj._offset;
+    var val = Math.random() * range + obj.range[0] + obj._offset;
+    if (obj.format)
+      val = numeral(val).format(obj.format);
+    return val;
   }
 }
 

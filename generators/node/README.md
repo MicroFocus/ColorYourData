@@ -37,6 +37,8 @@ The incremental change of values normally starts with the start of the generator
 </pre>
 With this setup a call of <code>http://localhost:55123/foo</code> will start the increment once for the given number of steps.
 
+The format of a numerical output can be controlled by a format string via the <code>format</code> property. Formatting makes use of the numeral.js package. E.g. 0.00 formats a number to two decimal digits.
+
 With BVD 10.61, the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
 
 In case you need to specify a proxy, please do so using environment variables like 

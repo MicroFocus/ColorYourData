@@ -34,7 +34,7 @@
       "sample": {
         "category": ["Online", "Retail"],
         "type": "Revenue",
-        "value": {"range": [70,80], "incr": 5, "steps": 10, "trigger": "foo"}
+        "value": {"range": [70,80], "incr": 5, "steps": 10, "trigger": "foo", "format": "0.00"}
       },
       "frequency": 5000, 
       "tolerance": 100,
