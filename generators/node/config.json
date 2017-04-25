@@ -1,6 +1,7 @@
 {
   "host": "localhost",
   "port": 4001,
+  "prefix": "bvd-receiver",
   "protocol": "http",
   "apiKey": "081508150815081508150815",
   "generators": [

@@ -9,7 +9,8 @@ var
   address = 'localhost',
   apiKey = '0815',
   file = 'config.json',
-  protocol = 'http';
+  protocol = 'http',
+  prefix;
 
 if (process.argv[2]) {
   file = process.argv[2];
@@ -20,6 +21,8 @@ jsonfile.readFile(file, function(err, obj) {
     address = obj.host + ':' + obj.port;
   else
     address = obj.host;
+  if (obj.prefix)
+    prefix = obj.prefix;
   apiKey = obj.apiKey;
   protocol = obj.protocol || protocol;
   _.each(obj.generators, function(gen) {
@@ -70,7 +73,10 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
     var evt = new Event();
     fun(evt);
 
-    var urlStr = protocol + '://' + address + '/bvd-receiver/api/submit/' + apiKey;
+    var urlStr = protocol + '://' + address;
+    if (prefix)
+      urlStr += '/' + prefix;
+    urlStr += '/api/submit/' + apiKey;
 
     if (!_.isEmpty(dims)) {
 	    urlStr += '/dims/' + dims;
@@ -92,7 +98,7 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
       },
       function(error, response, body) {
         if (error) {
-          console.log('Generic Sender (post to ' + address + '): ' + error);
+          console.log('Generic Sender (post to ' + urlStr + '): ' + error);
         } else {
           if (response.statusCode != 200) {
             console.log(JSON.stringify(body));

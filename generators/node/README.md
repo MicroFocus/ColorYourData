@@ -31,9 +31,7 @@ As value range with auto increment by give value (incr) and number of steps (ste
 "value": {"range": [70,80], "incr": 5, "steps": 10}
 </pre>
 
-
-When spcifying the value of sample properties, an array describes a set of possible values, where the generator picks one.
-You can also specify numeric ranges with a range property. The array describes the start and end of the range.
+With BVD 10.61, the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
 
 In case you need to specify a proxy, please do so using environment variables like 
 <pre><code>
