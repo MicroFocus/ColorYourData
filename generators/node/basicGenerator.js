@@ -17,16 +17,33 @@ var
 var 
   express = require("express"),
   app = express(),
-  port = 55123;
-
-app.listen(port, function () {
-  console.log("Listening on " + port);
-});
+  port = 55123,
+  active = false;
 
 
 if (process.argv[2]) {
   file = process.argv[2];
 }
+
+if (process.argv[3]) {
+  port = process.argv[3];
+}
+
+app.get('/on', function(req, res) {
+  active = true;
+  console.log('Generator is on, ' + port);
+  res.send('Generator is on, ' + port);
+});
+
+app.get('/off', function(req, res) {
+  active = false;
+  console.log('Generator is off, ' + port);
+  res.send('Generator is off, ' + port);
+});
+
+app.listen(port, function () {
+  console.log("Listening on " + port);
+});
 
 jsonfile.readFile(file, function(err, obj) {
   if (obj.port)
@@ -62,16 +79,24 @@ function calcValue(obj) {
       obj._running = true;
     if (obj.trigger && !obj._route) {
       app.get('/'+obj.trigger, function(req, res) {
-        if (!obj._running) {
+        if (!obj._running && active) {
           obj._running = true;
+          console.log('######## trigger started: '+obj.trigger);
           res.send('trigger started: '+obj.trigger);
         }
         else {
-          res.send('trigger already running: '+obj.trigger);
+          if (obj._running) {
+            console.log('######## trigger already running: '+obj.trigger);
+            res.send('trigger already running: '+obj.trigger);
+          }
+          else {
+            console.log('######## generator is not active');
+            res.send('generator is not active');
+          }
         }
       });
       obj._route = true;
-      console.log('route defined: '+obj.trigger);
+      console.log('######## route defined: '+obj.trigger);
     }
     if (obj.incr && obj._running) {
       obj._offset += obj.incr;
@@ -80,8 +105,10 @@ function calcValue(obj) {
     if (obj._idx === obj.steps) {
       obj._idx = -1;
       obj._offset = 0;
-      if (obj._route)
+      if (obj._route) {
         obj._running = false;
+        console.log('######## trigger stopped: '+obj.trigger);
+      }
     }
     var range = Math.abs(obj.range[0] - obj.range[1]);  
     //console.log(JSON.stringify(obj));
@@ -120,28 +147,33 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
       urlStr += '/tags/' + tags;
     }
 
-    console.log(JSON.stringify(evt));
-    request.post({
-        url : urlStr,
-        headers: {
-          'X-ApiKey': apiKey
+    if (active) {
+      //console.log(JSON.stringify(evt));
+      request.post({
+          url : urlStr,
+          headers: {
+            'X-ApiKey': apiKey
+          },
+          body: evt,
+          json: true,
+          rejectUnauthorized: false
         },
-        body: evt,
-        json: true,
-        rejectUnauthorized: false
-      },
-      function(error, response, body) {
-        if (error) {
-          console.log('Generic Sender (post to ' + urlStr + '): ' + error);
-        } else {
-          if (response.statusCode != 200) {
-            console.log(JSON.stringify(body));
-            console.log(urlStr);
+        function(error, response, body) {
+          if (error) {
+            console.log('Generic Sender (post to ' + urlStr + '): ' + error);
+          } else {
+            if (response.statusCode != 200) {
+              console.log(JSON.stringify(body));
+              console.log(urlStr);
+            }
           }
+          repeatFunc && setTimeout(repeatFunc, calcDelay());
         }
-        repeatFunc && setTimeout(repeatFunc, calcDelay());
-      }
-    );
+      );
+    }
+    else {
+      repeatFunc && setTimeout(repeatFunc, calcDelay());
+    }
 
   };
   this.run = function() {
