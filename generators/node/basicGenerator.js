@@ -18,7 +18,7 @@ var
   express = require("express"),
   app = express(),
   port = 55123,
-  active = false;
+  active = true;
 
 
 if (process.argv[2]) {
@@ -58,7 +58,7 @@ jsonfile.readFile(file, function(err, obj) {
     var sender = new GenericSender(
       function(sample) {
         _.each(_.keys(gen.sample), function(prop) {
-          sample[prop] = calcValue(gen.sample[prop]);
+          sample[prop] = calcValue(gen.sample[prop], gen.frequency);
         })        
       }, gen.frequency, gen.tolerance, gen.dims, gen.tags
     );
@@ -66,7 +66,7 @@ jsonfile.readFile(file, function(err, obj) {
   });
 })
 
-function calcValue(obj) {
+function calcValue(obj, freq) {
   if (_.isString(obj)) return obj;
   if (_.isNumber(obj)) return obj;
   if (_.isArray(obj)) return _.sample(obj);
@@ -117,6 +117,41 @@ function calcValue(obj) {
       val = numeral(val).format(obj.format);
     return val;
   }
+  if (obj.scene) {
+    obj.randomness = obj.randomness || 0;
+    if (!obj._plan) {
+      var r = generatePlan(obj.scene, freq);
+      obj._plan = r.plan;
+      obj._totalSteps = r.totalSteps
+      obj._idx = 0;
+    }
+
+    var val = (2 *Math.random() * obj.randomness/2) + obj._plan[obj._idx++] - obj.randomness/2;
+    if (obj._idx == obj._totalSteps)
+      obj._idx = 0;
+    if (obj.format)
+      val = numeral(val).format(obj.format);
+    //console.log(JSON.stringify(obj));
+    return val;
+  }
+}
+
+function generatePlan(scene, freq) {
+  var 
+    plan = [],
+    totalSteps = 0;
+
+  _.forEach(scene, (phase) => {
+    var 
+      start = phase.phase[0],
+      end   = phase.phase[1],
+      steps = phase.steps || Math.round(phase.time / freq),
+      incr  = (end - start)/steps;
+
+    totalSteps += steps;
+    plan = _.concat(plan, _.times(steps, (i) => { return start + i*incr; }));
+  });
+  return {plan, totalSteps};
 }
 
 // -------------------------------------------
@@ -148,7 +183,7 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
     }
 
     if (active) {
-      //console.log(JSON.stringify(evt));
+      console.log(JSON.stringify(evt));
       request.post({
           url : urlStr,
           headers: {
