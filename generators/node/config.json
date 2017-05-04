@@ -30,13 +30,30 @@
       "dims":"category,type"
     },
     {
-      "name":"Growing/shrinking value over given step count",
+      "name":"Growing/shrinking value over given step count - with trigger",
       "sample": {
         "category": ["Online", "Retail"],
         "type": "Revenue",
         "value": {"range": [70,80], "incr": 5, "steps": 10, "trigger": "foo", "format": "0.00"}
       },
       "frequency": 5000, 
+      "tolerance": 100,
+      "tags":"",
+      "dims":"category,type"
+    },
+    {
+      "name":"A scene with 3 phases",
+      "sample": {
+        "category": ["Online", "Retail"],
+        "type": "Revenue",
+        "value": {
+          "scene": [
+            {"phase": [10,10], "steps": 10},
+            {"phase": [10,20], "time":  3000},
+            {"phase": [20,10], "steps": 10}], 
+          "format": "0.0",
+          "randomness": 2}},
+      "frequency": 1000, 
       "tolerance": 100,
       "tags":"",
       "dims":"category,type"

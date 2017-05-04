@@ -5,16 +5,21 @@ Download the repository, cd into the node directory and run
 npm install
 </pre>
 
-## Running
-### Basic data generator 
+## Basic data generator 
+
+### Running
 <pre>
-node basicGenerator.js config_file.json
+node basicGenerator.js config_file.json [trigger-port]
 </pre>
 Specify a config file with basic info like host, port, protocol and API key, 
 plus add a list of generators with samples and update frequency.
 See config.json for an example.
 If you omit the port it will use the default according to the protocol.
 If you omit the protocol, http is used.
+
+The optional trigger-port is used to spawn the trigger listener. Default is port 55123. Triggers can be specified as described below. Two default triggers /on and /off are always active. Per default all generators are on and can be muted with the /off trigger.
+
+### Describing values
 
 Values can be generated in multiple ways:
 
@@ -69,7 +74,8 @@ HTTP_PROXY / http_proxy
 HTTPS_PROXY / https_proxy
 </pre>
 
-### AO-Bank sample data generator 
+## AO-Bank sample data generator 
+### Running
 <pre>
 node ao_bank_gen.js host:port ApiKey 
 </pre>
