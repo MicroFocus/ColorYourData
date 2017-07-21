@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-var os       = require('os');
-var request  = require('request');
-var _        = require('lodash');
+var os = require('os');
+var request = require('request');
+var _ = require('lodash');
 var jsonfile = require('jsonfile');
-var numeral  = require('numeral');
+var numeral = require('numeral');
 
 var
   address = 'localhost',
@@ -14,12 +14,13 @@ var
   prefix;
 
 // external trigger server
-var 
+var
   express = require("express"),
   app = express(),
   port = 55123,
   active = true;
 
+var dryrun = false;
 
 if (process.argv[2]) {
   file = process.argv[2];
@@ -41,7 +42,7 @@ app.get('/off', function(req, res) {
   res.send('Generator is off, ' + port);
 });
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
@@ -59,15 +60,32 @@ jsonfile.readFile(file, function(err, obj) {
       function(sample) {
         _.each(_.keys(gen.sample), function(prop) {
           sample[prop] = calcValue(gen.sample[prop], gen.frequency);
-        })        
+        })
       }, gen.frequency, gen.tolerance, gen.dims, gen.tags
     );
     sender.run();
   });
 })
 
-function calcValue(obj, freq) {
-  if (_.isString(obj)) return obj;
+function interpolate(str, data) {
+  var pattern = /\$\{([^{}]*)\}/g;
+  if (!data) {
+    return str.replace(pattern, '');
+  }
+
+  return str.replace(pattern, function(value, property) {
+    var result = data[property];
+
+    if (result === 0) { // escape null values
+      result = String(result);
+    }
+
+    return result;
+  });
+}
+
+function calcValue(obj, freq, data) {
+  if (_.isString(obj)) return interpolate(obj, data);
   if (_.isNumber(obj)) return obj;
   if (_.isArray(obj)) return _.sample(obj);
   if (obj.range) {
@@ -78,16 +96,16 @@ function calcValue(obj, freq) {
     if (obj.trigger == undefined)
       obj._running = true;
     if (obj.trigger && !obj._route) {
-      app.get('/'+obj.trigger, function(req, res) {
+      app.get('/' + obj.trigger, function(req, res) {
         if (!obj._running && active) {
           obj._running = true;
-          console.log('######## trigger started: '+obj.trigger);
-          res.send('trigger started: '+obj.trigger);
+          console.log('######## trigger started: ' + obj.trigger);
+          res.send('trigger started: ' + obj.trigger);
         }
         else {
           if (obj._running) {
-            console.log('######## trigger already running: '+obj.trigger);
-            res.send('trigger already running: '+obj.trigger);
+            console.log('######## trigger already running: ' + obj.trigger);
+            res.send('trigger already running: ' + obj.trigger);
           }
           else {
             console.log('######## generator is not active');
@@ -96,7 +114,7 @@ function calcValue(obj, freq) {
         }
       });
       obj._route = true;
-      console.log('######## route defined: '+obj.trigger);
+      console.log('######## route defined: ' + obj.trigger);
     }
     if (obj.incr && obj._running) {
       obj._offset += obj.incr;
@@ -107,10 +125,10 @@ function calcValue(obj, freq) {
       obj._offset = 0;
       if (obj._route) {
         obj._running = false;
-        console.log('######## trigger stopped: '+obj.trigger);
+        console.log('######## trigger stopped: ' + obj.trigger);
       }
     }
-    var range = Math.abs(obj.range[0] - obj.range[1]);  
+    var range = Math.abs(obj.range[0] - obj.range[1]);
     //console.log(JSON.stringify(obj));
     var val = Math.random() * range + obj.range[0] + obj._offset;
     if (obj.format)
@@ -126,7 +144,7 @@ function calcValue(obj, freq) {
       obj._idx = 0;
     }
 
-    var val = (2 *Math.random() * obj.randomness/2) + obj._plan[obj._idx++] - obj.randomness/2;
+    var val = (2 * Math.random() * obj.randomness / 2) + obj._plan[obj._idx++] - obj.randomness / 2;
     if (obj._idx == obj._totalSteps)
       obj._idx = 0;
     if (obj.format)
@@ -134,24 +152,34 @@ function calcValue(obj, freq) {
     //console.log(JSON.stringify(obj));
     return val;
   }
+  if (obj.group) {
+    var
+      size = obj.group.size,
+      item = obj.group.item;
+    return _.times(size, function(i) {
+      return _.mapValues(item, function(val) {
+        return calcValue(val, freq, { i: i });
+      });
+    });
+  }
 }
 
 function generatePlan(scene, freq) {
-  var 
+  var
     plan = [],
     totalSteps = 0;
 
   _.forEach(scene, (phase) => {
-    var 
+    var
       start = phase.phase[0],
-      end   = phase.phase[1],
+      end = phase.phase[1],
       steps = phase.steps || Math.round(phase.time / freq),
-      incr  = (end - start)/steps;
+      incr = (end - start) / steps;
 
     totalSteps += steps;
-    plan = _.concat(plan, _.times(steps, (i) => { return start + i*incr; }));
+    plan = _.concat(plan, _.times(steps, (i) => { return start + i * incr; }));
   });
-  return {plan, totalSteps};
+  return { plan, totalSteps };
 }
 
 // -------------------------------------------
@@ -175,7 +203,7 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
     urlStr += '/api/submit/' + apiKey;
 
     if (!_.isEmpty(dims)) {
-	    urlStr += '/dims/' + dims;
+      urlStr += '/dims/' + dims;
     }
 
     if (!_.isEmpty(tags)) {
@@ -184,8 +212,9 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
 
     if (active) {
       console.log(JSON.stringify(evt));
-      request.post({
-          url : urlStr,
+      if (!dryrun) {
+        request.post({
+          url: urlStr,
           headers: {
             'X-ApiKey': apiKey
           },
@@ -193,18 +222,22 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
           json: true,
           rejectUnauthorized: false
         },
-        function(error, response, body) {
-          if (error) {
-            console.log('Generic Sender (post to ' + urlStr + '): ' + error);
-          } else {
-            if (response.statusCode != 200) {
-              console.log(JSON.stringify(body));
-              console.log(urlStr);
+          function(error, response, body) {
+            if (error) {
+              console.log('Generic Sender (post to ' + urlStr + '): ' + error);
+            } else {
+              if (response.statusCode != 200) {
+                console.log(JSON.stringify(body));
+                console.log(urlStr);
+              }
             }
+            repeatFunc && setTimeout(repeatFunc, calcDelay());
           }
-          repeatFunc && setTimeout(repeatFunc, calcDelay());
-        }
-      );
+        );
+      }
+      else {
+        repeatFunc && setTimeout(repeatFunc, calcDelay());
+      }
     }
     else {
       repeatFunc && setTimeout(repeatFunc, calcDelay());
