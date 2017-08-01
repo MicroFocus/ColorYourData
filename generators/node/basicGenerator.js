@@ -156,11 +156,17 @@ function calcValue(obj, freq, data) {
     var
       size = obj.group.size,
       item = obj.group.item;
-    return _.times(size, function(i) {
+    if (_.isArray(size))
+      size = _.random(size[0], size[1]);
+    var items = _.times(size, function(i) {
       return _.mapValues(item, function(val) {
         return calcValue(val, freq, { i: i });
       });
     });
+    if (obj.group.sort) {
+      items = _.sortBy(items, function(o) { return o[obj.group.sort] });
+    }
+    return items;
   }
 }
 
