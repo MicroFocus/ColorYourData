@@ -85,6 +85,11 @@ function interpolate(str, data) {
 }
 
 function calcValue(obj, freq, data) {
+  var evalObj;
+  try { evalObj = eval(obj); } catch (e){}
+  if (_.isFunction(evalObj)) { // if user provide callback function, use this to generate prop's value
+    return evalObj(freq, data);
+  }
   if (_.isString(obj)) return interpolate(obj, data);
   if (_.isNumber(obj)) return obj;
   if (_.isArray(obj)) return _.sample(obj);
