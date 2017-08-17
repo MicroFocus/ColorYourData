@@ -91,6 +91,16 @@ The above snippet produces samples with a random size items list, where each ite
 #### Formatting numerical values
 The format of a numerical output can be controlled by a format string via the <code>format</code> property. Formatting makes use of the numeral.js package. E.g. 0.00 formats a number to two decimal digits.
 
+#### Callback function to define values
+We can provide callback function that return a value for a particular property. The callback function must be written in a string which then will be evaluated by generator. Please see example below:
+<pre>
+{
+  ...
+  "myProperty": "(function(freq, data){ return 'MyValue_' + (Math.random() + data.i); })"
+  ...
+}
+</pre>
+
 #### URL prefix
 With BVD 10.61, the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
 
