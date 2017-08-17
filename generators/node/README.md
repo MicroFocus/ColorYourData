@@ -99,7 +99,7 @@ We can provide callback function that return a value for a particular property. 
   "myProperty": "(function(freq, data){ return 'MyValue_' + (Math.random() + data.i); })"
   ...
 }
-<pre>
+</pre>
 
 #### URL prefix
 With BVD 10.61, the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
