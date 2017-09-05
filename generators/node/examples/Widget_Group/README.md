@@ -10,4 +10,6 @@ Run the example with
 
 <pre>node basicGenerator.js config_group.json</pre>
 
-You will seee the widget group displaying the dynamic list of services under "Dashboards" in BVD when you select the dashboard "With_Widget_Group".
+For instructions to adapt the config file to your own environment, have a look at the [README](https://github.com/MicroFocus/ColorYourData/tree/master/generators/node/examples) one level above
+
+You will see the widget group displaying the dynamic list of services under "Dashboards" in BVD when you select the dashboard "With_Widget_Group".
