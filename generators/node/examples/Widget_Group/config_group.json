@@ -1,0 +1,32 @@
+{
+  "host": "<BVD-receiver-host>",
+  "port" : 443,
+  "protocol": "https",
+  "apiKey": "<API-Key>",
+  "generators": [
+    {
+      "name": "A_group_of_services",
+      "sample": {
+        "items": {
+          "group": {
+            "item": {
+              "id": "Service_${i}",
+              "severity": ["green", "yellow", "red" ],
+              "performance": {
+                "range": [10, 90],
+                "format": "0.0"
+              }
+            },
+            "size": [4, 6],
+            "sort": "performance"
+          },
+          "format": "0.0",
+          "randomness": 2
+        }
+      },
+      "frequency": 5000,
+      "tolerance": 0,
+      "tags": "with_widget_group"
+    }
+  ]
+}

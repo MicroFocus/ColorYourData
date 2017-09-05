@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="8.5in" height="11in" viewBox="0 0 612 792" xml:space="preserve" color-interpolation-filters="sRGB" class="st16" preserveAspectRatio="xMidYMin" opr_dashboard_title="With_Widget_Group">
+
+	
+
+	<style type="text/css">
+	<![CDATA[
+		.bg {fill:#ffffff}
+		.st1 {fill:#f2f2f2;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st2 {fill:#f2f2f2;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st3 {fill:#d8d8d8;stroke:#bfbfbf;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.25}
+		.st4 {fill:#ffffff;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st5 {fill:none;stroke:none;stroke-width:0.25}
+		.st6 {fill:#000000;font-family:Calibri;font-size:1.00001em}
+		.st7 {fill:#ef9301;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st8 {fill:#c80e04;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st9 {fill:#49b250;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st10 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st11 {stroke:#000000;stroke-dasharray:5.25,3.75;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st12 {stroke:#31859b;stroke-linecap:round;stroke-linejoin:round;stroke-width:2}
+		.st13 {fill:none;stroke:#002060;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st14 {fill:#000000;font-family:Calibri;font-size:0.833336em}
+		.st15 {font-size:1em}
+		.st16 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g opr_background="bg">
+		
+		
+		<g id="group43" transform="translate(98.0522,-111.671)" opr_item_type="opr_widget_group" opr_keep_item="1" opr_dashboard_item="1" opr_channel_vars="" opr_channel="with_widget_group" opr_field="">
+			
+			<g id="group1" opr_dashboard_item="1" opr_item_type="opr_widget_group" opr_grouping_item="1" opr_keep_item="1">
+				
+				
+				<g id="shape2">
+					
+					<rect x="0" y="187.342" width="423" height="604.658" class="st1"/>
+				</g>
+				<g id="shape3" transform="translate(412.425,-0.944778)" opr_scroll_container="1" opr_scroll_parent="1">
+					
+					
+					<rect x="0" y="189.232" width="10.2445" height="602.768" class="st2"/>
+				</g>
+				<g id="shape4" transform="translate(412.636,-362.795)" opr_scroll_control="1">
+					
+					
+					<rect x="0" y="616.271" width="9.70256" height="175.729" class="st3"/>
+				</g>
+			</g>
+			<g id="group41" transform="translate(35.997,-489.039)">
+				
+				<g id="shape24">
+					
+					
+					<rect x="0" y="719.163" width="352.896" height="72.8371" class="st4"/>
+				</g>
+				<g id="shape25" transform="translate(6.16535,-25.1629)" opr_dashboard_item="1" opr_item_type="opr_update_text" opr_text_value="1" opr_text_color="1" opr_channel_vars="" opr_channel="with_widget_group" opr_field="id">
+					
+					
+					
+					
+					
+					<rect x="0" y="772" width="48.7854" height="20" class="st5"/>
+					<text x="10.6" y="785.6" class="st6" opr_horiz_align="1">Value</text>				</g>
+				<g id="group26" transform="translate(61.5679,-23.5379)" opr_dashboard_item="1" opr_item_type="opr_update_images" opr_switch_default="grey" opr_channel_vars="" opr_channel="with_widget_group" opr_status="severity">
+					
+					
+					<g id="group27" opr_switch_value="yellow">
+						
+						
+						<g id="shape28">
+							
+							<path d="M11.62 768.75 C5.2 768.75 0 773.95 0 780.37 C0 786.8 5.2 792 11.62 792 C18.05 792 23.25 786.8
+										 23.25 780.37 C23.25 773.95 18.05 768.75 11.62 768.75 ZM18.49 786.75 L4.76 786.75 C4.01 786.75
+										 3.46 785.98 3.89 785.23 C4.24 784.62 10.15 772.52 10.75 771.49 C11.14 770.81 12.08 770.82
+										 12.48 771.49 C12.92 772.23 18.86 784.38 19.35 785.26 C19.71 785.9 19.31 786.75 18.49 786.75
+										 ZM12.17 781.5 L12.75 777.57 L12.75 774.75 L10.5 774.75 L10.5 777.57 L11.07 781.5 L12.17
+										 781.5 ZM10.5 785.25 L12.75 785.25 L12.75 783 L10.5 783 L10.5 785.25 Z" class="st7"/>
+						</g>
+					</g>
+					<g id="group29" opr_switch_value="red">
+						
+						
+						<g id="shape30">
+							
+							<path d="M11.62 768.75 C5.21 768.75 0 773.96 0 780.37 C0 786.8 5.21 792 11.62 792 C18.05 792 23.25 786.8
+										 23.25 780.37 C23.25 773.96 18.05 768.75 11.62 768.75 ZM17.93 784.37 C18.22 784.66 18.22
+										 785.14 17.93 785.43 L16.66 786.7 C16.36 787 15.89 787 15.6 786.7 L11.65 782.75 L7.74 786.7
+										 C7.45 786.99 6.98 786.99 6.69 786.7 L5.43 785.43 C5.14 785.13 5.14 784.66 5.43 784.37 L9.33
+										 780.43 L5.3 776.4 C5.01 776.1 5.01 775.63 5.3 775.34 L6.57 774.06 C6.86 773.77 7.33 773.77
+										 7.63 774.06 L11.64 778.08 L15.63 774.05 C15.92 773.76 16.39 773.75 16.68 774.05 L17.94 775.32
+										 C18.23 775.61 18.23 776.09 17.94 776.38 L13.96 780.4 L17.93 784.37 Z" class="st8"/>
+						</g>
+					</g>
+					<g id="group31" opr_switch_value="green">
+						
+						
+						<g id="shape32">
+							
+							<path d="M11.62 768.75 C5.21 768.75 0 773.96 0 780.37 C0 786.8 5.21 792 11.62 792 C18.05 792 23.25 786.8
+										 23.25 780.37 C23.25 773.96 18.05 768.75 11.62 768.75 ZM18.66 777.11 L10.46 785.42 C10.46
+										 785.42 10.46 785.42 10.45 785.43 L9.19 786.7 C8.9 786.99 8.43 786.99 8.15 786.7 L6.88 785.43
+										 C6.88 785.42 6.88 785.42 6.88 785.42 L4.56 783.07 C4.27 782.78 4.27 782.31 4.56 782.01 L5.83
+										 780.74 C6.11 780.45 6.58 780.45 6.87 780.74 L8.67 782.56 L16.36 774.77 C16.64 774.48 17.11
+										 774.48 17.4 774.77 L18.66 776.05 C18.95 776.34 18.95 776.81 18.66 777.11 Z" class="st9"/>
+						</g>
+					</g>
+					<g id="shape33" transform="translate(0,0.755906)" opr_switch_value="grey">
+						
+						
+						<rect x="0" y="768" width="23.2713" height="24" class="st10"/>
+						<switch>
+							<foreignObject x="0" y="768" width="23.2713" height="24" requiredExtensions="http://schemas.microsoft.com/visio/2003/SVGExtensions/">
+								
+							</foreignObject>
+							<svg viewBox="0 0 31.026 31.007" enable-background="new" color-interpolation-filters="sRGB" height="24" preserveAspectRatio="xMidYMin" width="23.2713" x="0" y="768">
+								<defs>
+									<clipPath id="mfid1">
+										<rect id="mfid2" x="0" y="0" width="31.026" height="31.007"/>
+									</clipPath>
+								</defs>
+								<g clip-path="url(#mfid1)">
+									<defs>
+										<g id="mfid3">
+											<path transform="matrix(0.028336, 0, 0, 0.027447, 0, 0)" d="M547,0 C247,0 0,247 0,547 C0,849 247,1093 547,1093 C849,1093 1094,849 1094,547 C1094,247 849,0 547,0 Z M556,134 C604,134 643,139 675,149 C706,160 732,174 751,193 C770,212 783,235 790,261 C798,288 802,318 802,351 C802,377 800,399 796,418 C791,437 784,455 776,471 C768,487 757,502 744,516 C731,530 716,544 698,559 C684,571 672,582 661,591 C651,600 642,608 634,617 C627,625 620,634 616,643 C611,652 607,663 606,676 L602,701 L497,701 C478,701 465,690 457,669 C451,652 447,634 447,614 C447,583 455,558 471,539 C487,520 505,502 527,482 C541,469 553,458 562,449 C571,440 578,431 583,424 C588,416 592,409 594,402 C597,394 598,386 598,377 C598,362 595,350 590,341 C585,331 578,323 569,319 C560,314 549,311 536,310 C524,308 510,307 496,307 C476,307 456,308 435,309 C414,310 399,311 392,311 C377,311 367,308 362,301 C356,294 354,284 354,270 L354,173 C374,164 400,156 432,148 C464,139 506,134 556,134 Z M540,769 C581,769 611,777 628,794 C645,811 654,838 654,875 C654,912 645,939 628,955 C611,972 581,980 540,980 C499,980 470,972 452,955 C435,939 426,912 426,875 C426,838 435,811 452,794 C470,777 499,769 540,769 Z"/>
+										</g>
+									</defs>
+									<g transform="matrix(0.028336, 0, 0, 0.027447, 0, 0)">
+										<g fill-rule="evenodd" stroke="#000000" stroke-miterlimit="10" fill="#b3b3b3">
+											<use xlink:href="#mfid3" transform="matrix(35.29, -0, -0, 36.433, -0, 0)" stroke="none"/>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</switch>
+						<rect x="0" y="768" width="23.2713" height="24" class="st10"/>
+					</g>
+				</g>
+				<g id="shape34" transform="translate(89.4154,-25.1629)" opr_dashboard_item="1" opr_item_type="opr_update_text" opr_text_value="1" opr_text_color="1" opr_channel_vars="" opr_channel="with_widget_group" opr_field="performance">
+					
+					
+					
+					
+					
+					<rect x="0" y="772" width="48.7854" height="20" class="st5"/>
+					<text x="10.6" y="785.6" class="st6" opr_horiz_align="1">Value</text>				</g>
+				<g id="shape20" transform="translate(145.896,-36.4186)">
+					
+					<path d="M0 792 L198 792" class="st11"/>
+				</g>
+				<g id="group35" transform="translate(143.557,0)" opr_dashboard_item="1" opr_chart_auto_scale="0" opr_chart_max_value="100" opr_chart_min_value="0" opr_mouse_over="1" opr_chart_period="10" opr_item_type="opr_update_sparkline" opr_chart_numbers="0" opr_channel_vars="" opr_channel="with_widget_group" opr_field="performance">
+					
+					
+					
+					<g id="shape36" opr_line_design="chart">
+						
+						
+						<path d="M0 743.52 C1.58 745.75 2.64 742.58 3.69 740.98 C7.49 735.21 11.31 749.7 13.58 751.36 C15.01 752.4
+									 15.83 748.39 17.11 748.31 C20.05 748.13 25.41 768.83 28.59 777.25 C31.69 785.42 32.73 781.99
+									 35.09 778.89 C37.19 776.14 40.33 773.64 44.35 761.32 C46.72 754.04 49.39 743.33 51.17 743.25
+									 C52.47 743.18 53.29 748.81 54.51 749.67 C55.86 750.63 57.7 745.7 59.83 744.12 C63.81 741.15
+									 68.83 749.93 72.82 752.14 C75.03 753.35 76.92 752.57 78.45 748.16 C80.65 741.82 82.11 727.99
+									 83.4 727.63 C84.43 727.34 85.35 735.5 87.08 736.82 C88.82 738.13 91.37 732.57 93.43 731.71 C95.24
+									 730.95 96.67 733.81 97.87 737.06 C101.64 747.22 103.25 761.14 108.05 773.85 C110.69 780.85 114.29
+									 787.48 117.12 790.34 C120 793.27 122.07 792.29 123.71 788.32 C126.71 781.08 128.29 763.91 131.65
+									 753.65 C133.46 748.13 135.78 744.61 137.61 736.13 C138.79 730.62 139.77 723 141.2 720.66 C142.35
+									 718.78 143.79 720.3 145.21 723.21 C148.23 729.4 151.19 741.91 155.22 741.99 C157.56 742.04 160.27
+									 737.89 162.73 739.1 C164.54 740 166.21 743.77 167.63 744.73 C169.26 745.84 170.56 743.21 171.39
+									 738.71 C172.6 732.18 172.82 721.72 174.75 720.47 C176.05 719.63 178.13 722.96 179.88 722.92
+									 C181.81 722.88 183.35 718.77 184.81 719.16 C187.19 719.8 189.38 732.27 191.27 736.23 C193.49
+									 740.86 195.3 733.85 199.34 736.78 C200.43 737.58 201.68 739.09 202.68 743.52" class="st12"/>
+					</g>
+					<g id="shape37" transform="translate(70.937,-36.4186)">
+						
+						<ellipse cx="3.54331" cy="788.457" rx="3.54331" ry="3.54331" class="st13"/>
+					</g>
+					<g id="shape38" transform="translate(91.5908,-26.321)" opr_line_design="mouseover">
+						
+						
+						
+						
+						
+						<rect x="0" y="753.847" width="88.3345" height="38.1528" class="st10"/>
+						<text x="4" y="769.92" class="st14">130<tspan x="4" dy="1.2em" class="st15">14</tspan>:04:33</text>					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+
+</svg>
