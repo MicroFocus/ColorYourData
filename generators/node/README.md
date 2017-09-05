@@ -1,9 +1,13 @@
-Data generator using Node.js
+Data generator using Node.js (JavaScript)
 ## Installing
+Install [Nodejs](https://nodejs.org).
+
 Download the repository, cd into the node directory and run
 <pre>
 npm install
 </pre>
+
+This directory contains a basic generator and example subfolders along with specific generator config files and corresponding Visio files
 
 ## Basic data generator
 
