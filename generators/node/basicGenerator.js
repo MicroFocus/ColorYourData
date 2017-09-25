@@ -5,13 +5,67 @@ var request = require('request');
 var _ = require('lodash');
 var jsonfile = require('jsonfile');
 var numeral = require('numeral');
+var dd = require('dashdash');
 
-var
-  address = 'localhost',
-  apiKey = '0815',
-  file = 'config.json',
-  protocol = 'http',
-  prefix;
+var options = [
+  {
+    names: ['help', 'h'],
+    type: 'bool',
+    help: 'Print this help and exit.'
+  },
+  {
+    names: ['key', 'k'],
+    type: 'string',
+    help: 'Override API key from config file.',
+    helpArg: 'KEY'
+  },
+  {
+    names: ['protocol', 'P'],
+    type: 'integer',
+    help: 'Override protocol (https/https) from config file.',
+    //default: 'http',
+    helpArg: 'PROT'
+  },
+  {
+    names: ['address', 'a'],
+    type: 'string',
+    help: 'Override address (name or IP and optional port) from config file.',
+    //default: 'localhost',
+    helpArg: 'ADDR'
+  },
+  {
+    names: ['file', 'f'],
+    type: 'string',
+    help: 'Config file to process',
+    default: 'config.json',
+    helpArg: 'FILE'
+  },
+  {
+    names: ['trigger', 't'],
+    type: 'integer',
+    help: 'Listening port for external trigger.',
+    default: 55123,
+    //hidden: true,
+    helpArg: 'PORT'
+  }
+];
+
+var parser = dd.createParser({ options: options });
+try {
+  var opts = parser.parse(process.argv);
+} catch (e) {
+  console.error('foo: error: %s', e.message);
+  process.exit(1);
+}
+
+if (!opts.file || opts.help) {
+  var help = parser.help({ includeEnv: true }).trimRight();
+  console.log('usage: node basicGenerator.js [OPTIONS]\n'
+    + 'options:\n'
+    + help);
+  process.exit(0);
+}
+
 
 // external trigger server
 var
@@ -22,13 +76,14 @@ var
 
 var dryrun = false;
 
-if (process.argv[2]) {
-  file = process.argv[2];
-}
+var
+  address,
+  apiKey,
+  file = opts.file,
+  protocol,
+  prefix;
 
-if (process.argv[3]) {
-  port = process.argv[3];
-}
+port = opts.trigger;
 
 app.get('/on', function(req, res) {
   active = true;
@@ -47,14 +102,16 @@ app.listen(port, function() {
 });
 
 jsonfile.readFile(file, function(err, obj) {
-  if (obj.port)
+  address = 'localhost';
+  if (obj.port && obj.host)
     address = obj.host + ':' + obj.port;
-  else
-    address = obj.host;
+  if (opts.address)
+    address = opts.address;
+
   if (obj.prefix)
     prefix = obj.prefix;
-  apiKey = obj.apiKey;
-  protocol = obj.protocol || protocol;
+  apiKey = opts.key || obj.apiKey;
+  protocol = opts.protocol || obj.protocol || 'http';
   _.each(obj.generators, function(gen) {
     var sender = new GenericSender(
       function(sample) {
@@ -86,7 +143,7 @@ function interpolate(str, data) {
 
 function calcValue(obj, freq, data) {
   var evalObj;
-  try { evalObj = eval(obj); } catch (e){}
+  try { evalObj = eval(obj); } catch (e) { }
   if (_.isFunction(evalObj)) { // if user provide callback function, use this to generate prop's value
     return evalObj(freq, data);
   }

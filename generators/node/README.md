@@ -2,7 +2,7 @@ Data generator using Node.js (JavaScript)
 ## Installing
 Install [Nodejs](https://nodejs.org).
 
-Download the repository, cd into the node directory and run
+Download the repository, cd into the node subdirectory of this repo (generators/node) and run
 <pre>
 npm install
 </pre>
@@ -13,15 +13,25 @@ This directory contains a basic generator and example subfolders along with spec
 
 ### Running
 <pre>
-node basicGenerator.js config_file.json [trigger-port]
+node basicGenerator.js [OPTIONS]
 </pre>
-Specify a config file with basic info like host, port, protocol and API key,
-plus add a list of generators with samples and update frequency.
+where OPTIONS is one or more from
+<pre>
+    -h, --help                Print this help and exit.
+    -k KEY, --key=KEY         Override API key from config file.
+    -P PROT, --protocol=PROT  Override protocol (https/https) from config file.
+    -a ADDR, --address=ADDR   Override address (name or IP and optional port)
+                              from config file.
+    -f FILE, --file=FILE      Config file to process.
+    -t PORT, --trigger=PORT   Listening port for external trigger.
+</pre>
+Specify a config file with basic info like host, port, protocol and API key, plus add a list of generators with samples and update frequency.
 See config.json for an example.
-If you omit the port it will use the default according to the protocol.
-If you omit the protocol, http is used.
+All options from the config file can be overridden by comannd line options as shown above.
 
-The optional trigger-port is used to spawn the trigger listener. Default is port 55123. Triggers can be specified as described below. Two default triggers /on and /off are always active. Per default all generators are on and can be muted with the /off trigger.
+If no config file is specified, the default is config.json.
+
+The trigger-port is used to spawn the trigger listener. Default is port 55123. Triggers can be specified as described below. Two default triggers /on and /off are always active. Per default all generators are on and can be muted with the /off trigger.
 
 ### Describing values
 
