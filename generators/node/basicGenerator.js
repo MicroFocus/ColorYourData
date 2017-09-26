@@ -103,6 +103,8 @@ app.listen(port, function() {
 
 jsonfile.readFile(file, function(err, obj) {
   address = 'localhost';
+  if (obj.host)
+    address = obj.host;
   if (obj.port && obj.host)
     address = obj.host + ':' + obj.port;
   if (opts.address)
