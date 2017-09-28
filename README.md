@@ -10,4 +10,4 @@ contains code to generate sample data send to BVD.
 contains code to transform data from other sources and send it to BVD. I.e. to connect your data source to BVD
 
 ## widgets
-contains sample code using the widget API. (beta)
+Enhance dashboards with custom widget.
