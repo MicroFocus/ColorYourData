@@ -1,8 +1,4 @@
 {
-  "host": "<BVD-receiver-host>",
-  "port" : 443,
-  "protocol": "https",
-  "apiKey": "<API-Key>",
   "generators": [
     {
       "name": "A_group_of_services",
