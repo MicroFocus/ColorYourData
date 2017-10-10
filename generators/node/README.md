@@ -5,12 +5,12 @@ This directory contains a basic generator and example subfolders along with spec
 ## Installing
 Install [Nodejs](https://nodejs.org).
 
+Make sure to set your proxy (http_proxy, https_proxy and no_proxy) according to your environment.
+
 Download the repository into a fresh work space, cd into the node subdirectory of this repo (generators/node) and run
 <pre>
 npm install
 </pre>
-
-Make sure to set your proxy (http_proxy, https_proxy and no_proxy) according to your environment.
 
 ## Basic data generator
 
@@ -22,7 +22,7 @@ where OPTIONS is one or more from
 <pre>
     -h, --help                Print this help and exit.
     -k KEY, --key=KEY         Override API key from config file.
-    -P PROT, --protocol=PROT  Override protocol (https/https) from config file.
+    -p PROT, --protocol=PROT  Override protocol (http/https) from config file.
     -a ADDR, --address=ADDR   Override address (name or IP and optional port)
                               from config file.
     -f FILE, --file=FILE      Config file to process.
