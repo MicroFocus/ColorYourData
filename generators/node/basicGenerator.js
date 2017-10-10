@@ -20,9 +20,9 @@ var options = [
     helpArg: 'KEY'
   },
   {
-    names: ['protocol', 'P'],
-    type: 'integer',
-    help: 'Override protocol (https/https) from config file.',
+    names: ['protocol', 'p'],
+    type: 'string',
+    help: 'Override protocol (http/https) from config file.',
     //default: 'http',
     helpArg: 'PROT'
   },
@@ -110,8 +110,7 @@ jsonfile.readFile(file, function(err, obj) {
   if (opts.address)
     address = opts.address;
 
-  if (obj.prefix)
-    prefix = obj.prefix;
+  prefix = obj.prefix || 'bvd-receiver';
   apiKey = opts.key || obj.apiKey;
   protocol = opts.protocol || obj.protocol || 'http';
   _.each(obj.generators, function(gen) {
