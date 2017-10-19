@@ -6,6 +6,7 @@ var _ = require('lodash');
 var jsonfile = require('jsonfile');
 var numeral = require('numeral');
 var dd = require('dashdash');
+var global = {};
 
 var options = [
   {
@@ -114,10 +115,12 @@ jsonfile.readFile(file, function(err, obj) {
   apiKey = opts.key || obj.apiKey;
   protocol = opts.protocol || obj.protocol || 'http';
   _.each(obj.generators, function(gen) {
+    gen._r = gen._r || {};
     var sender = new GenericSender(
       function(sample) {
         _.each(_.keys(gen.sample), function(prop) {
-          sample[prop] = calcValue(gen.sample[prop], gen.frequency);
+          sample[prop] = calcValue(gen.sample[prop], gen.frequency, gen._r);
+          gen._r[prop] = sample[prop];
         })
       }, gen.frequency, gen.tolerance, gen.dims, gen.tags
     );
@@ -142,15 +145,30 @@ function interpolate(str, data) {
   });
 }
 
+
 function calcValue(obj, freq, data) {
   var evalObj;
-  try { evalObj = eval(obj); } catch (e) { }
+  try {
+    if (_.isString(obj)) {
+      evalObj = eval('(' + obj + ')');
+    }
+  } catch (e) {
+    // console.log(e);
+  }
   if (_.isFunction(evalObj)) { // if user provide callback function, use this to generate prop's value
-    return evalObj(freq, data);
+    return evalObj(data, freq);
   }
   if (_.isString(obj)) return interpolate(obj, data);
   if (_.isNumber(obj)) return obj;
   if (_.isArray(obj)) return _.sample(obj);
+  if (obj.eval) {
+    return (function(str) {
+      return eval(str);
+    }).call(data, obj.eval);
+  }
+  if (obj.ith) {
+    return obj.ith[data.i];
+  }
   if (obj.range) {
     if (obj._offset == undefined)
       obj._offset = 0;
@@ -192,7 +210,6 @@ function calcValue(obj, freq, data) {
       }
     }
     var range = Math.abs(obj.range[0] - obj.range[1]);
-    //console.log(JSON.stringify(obj));
     var val = Math.random() * range + obj.range[0] + obj._offset;
     if (obj.format)
       val = numeral(val).format(obj.format);
@@ -218,14 +235,27 @@ function calcValue(obj, freq, data) {
   if (obj.group) {
     var
       size = obj.group.size,
-      item = obj.group.item;
-    if (_.isArray(size))
+      itemPattern = obj.group.item,
+      changedIndex = -1,
+      change = obj.group.change || 'all';
+
+    if (_.isArray(size)) {
       size = _.random(size[0], size[1]);
+    }
+    if (change === 'single')
+      changedIndex = Math.floor(Math.random() * size);
     var items = _.times(size, function(i) {
-      return _.mapValues(item, function(val) {
-        return calcValue(val, freq, { i: i });
+      var item = obj.items && obj.items[i] || itemPattern;
+      if (i === changedIndex)
+        item = itemPattern;
+      item._r = item._r || {};
+      return _.mapValues(item, function(val, key) {
+        var r = calcValue(val, freq, _.merge({ i: i }, item._r));
+        item._r[key] = r;
+        return r;
       });
     });
+    obj.items = items;
     if (obj.group.sort) {
       items = _.sortBy(items, function(o) { return o[obj.group.sort] });
     }
