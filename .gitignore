@@ -226,3 +226,4 @@ pip-log.txt
 
 #local
 nogit
+generators/node/npm-debug*
