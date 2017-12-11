@@ -1,0 +1,152 @@
+body {
+    margin: 0px;
+    position: relative;
+    background: #eaeaea;
+    margin-bottom: 100px
+}
+
+.content {
+}
+
+.section-header {
+  display: flex;
+  padding-top: 30px;
+  padding-bottom: 32px;
+  padding-left: 160px;
+  font-size: 55px;
+  font-style: normal;
+  color:white;
+  width: 700px;
+}
+
+.section-box {
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.section-box:nth-of-type(1) {
+  padding-bottom: 30px;
+  padding-top: 45px;
+}
+
+.service-card-container {
+    overflow: hidden;
+    margin-top: 32px;
+    padding-left: 150px;
+  }
+
+.service-card {
+    width: 300px;
+    height: 350px;
+    float: left;
+    margin:16px;
+    padding: 32px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: solid 5px rgba(0, 0, 0, 0.12);
+    transition: border-top-color 0.25s ease;
+}
+
+.service-card:hover {
+    border-top: solid 5px #0079ef;
+}
+
+._panel {
+  margin-bottom: 16px;
+  background-color: #FFFFFF;
+  border-radius: 0;
+}
+
+.navbox {
+  position: absolute;
+  top: 40px;
+}
+
+.nav.nav-stacked > li > a {
+  font-size: 20px;
+  font-style: normal;
+}
+
+.logo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 56px;
+    width: 56px;
+    background-image: url('../img/omiLogo_32_dark.png');
+    background-position: 12px 12px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #00ABF3;
+  }
+
+.head-text {
+  position: absolute;
+  top: 0px;
+  left: 90px;
+  height: 56px;
+  color: white;
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  margin-top: 17px;
+  letter-spacing: 1.1px;
+}
+
+.masthead {
+    width: 100%;
+    height: 56px;
+    background-color: #0079EF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.masthead .nav.nav-tabs {
+    margin:0px;
+}
+
+.masthead .nav.nav-tabs > li > a{
+    color: rgba(255, 255, 255, 0.8);
+}
+.masthead .nav.nav-tabs > li > a:hover{
+    color: white;
+}
+
+.masthead .nav.nav-tabs > li:not(.disabled).active > a {
+    color: white;
+}
+
+.masthead .nav.nav-tabs > li:not(.disabled).active > a:hover {
+    color: white;
+}
+
+.masthead .nav.nav-tabs > li > a:after {
+    background-color: #white;
+}
+
+.nav.nav-tabs > li > a:after {
+    background-color: darkgray;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  padding: 27px 0 20px;
+}
+
+.footer {
+  margin-top: 10px;
+  margin-left: 50px;
+  font-size: 18px;
+  font-weight: 300;
+  font-size: 14px;
+  color: #555;
+  clear: both;
+  text-align: left;
+}
+
+h2 {
+  color:  #0073E7;
+}

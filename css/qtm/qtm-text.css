@@ -1,0 +1,247 @@
+@charset "UTF-8";
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 16px;
+  font-family: "MetricHPE", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #323435;
+  letter-spacing: 0.2px;
+  line-height: 19px;
+}
+
+*::-moz-selection {
+  background: #0073E7;
+  color: #FFFFFF;
+}
+*::selection {
+  background: #0073E7;
+  color: #FFFFFF;
+}
+
+label,
+input,
+button,
+select,
+textarea {
+  font-family: "MetricHPE", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  font-style: normal;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+h1 b, h1 strong {
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  font-style: normal;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+}
+h2 b, h2 strong {
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+h3 b, h3 strong {
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
+h4 b, h4 strong {
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 12px;
+  font-weight: 400;
+  font-style: normal;
+  color: #656668;
+  margin-top: 8px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+h5 b, h5 strong {
+  font-weight: 700;
+}
+
+h1.noTopMargin, h2.noTopMargin, h3.noTopMargin, h4.noTopMargin, h5.noTopMargin {
+  margin-top: 0;
+}
+h1.noBottomMargin, h2.noBottomMargin, h3.noBottomMargin, h4.noBottomMargin, h5.noBottomMargin {
+  margin-bottom: 0;
+}
+h1[required]:after, h2[required]:after, h3[required]:after, h4[required]:after, h5[required]:after {
+  content: " * ";
+  color: #E5004C;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 8px;
+}
+p small {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+p b, p strong {
+  font-weight: 700;
+}
+p em {
+  font-style: italic;
+}
+
+.text-primary {
+  color: #323435;
+}
+
+.text-secondary, .text-default {
+  color: #656668;
+}
+
+.text-disabled {
+  color: rgba(101, 102, 104, 0.4);
+}
+
+.text-muted {
+  color: #DCDEDF;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.text-wrap {
+  overflow: inherit;
+  white-space: inherit;
+  text-overflow: inherit;
+  line-height: initial;
+}
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+hr {
+  margin: 0 0 16px 0;
+  border: 0;
+  border-style: solid;
+  border-bottom-width: 1px;
+  border-color: rgba(50, 52, 53, 0.1);
+}
+
+.severityMinor {
+  color: #FCDB1F;
+}
+
+.severityCritical {
+  color: #E5004C;
+}
+
+a {
+  color: #0073E7;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+a:hover, a:focus {
+  color: #0073E7;
+  text-decoration: underline;
+}
+
+.monospace {
+  color: #323435;
+  font-family: Consolas, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-weight: 400;
+}
+
+code {
+  color: #323435;
+  font-family: Consolas, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-weight: 400;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+}
+
+pre {
+  min-height: 24px;
+  padding: 2px 8px;
+  background-color: #F1F2F3;
+  border: 0 none;
+  border-radius: unset;
+  margin: 0;
+}
+
+.qtm-dark-theme .text-primary {
+  color: rgba(255, 255, 255, 0.8);
+}
+.qtm-dark-theme .text-secondary, .qtm-dark-theme .text-default {
+  color: rgba(255, 255, 255, 0.6);
+}
+.qtm-dark-theme .text-disabled {
+  color: rgba(255, 255, 255, 0.6);
+}
+.qtm-dark-theme .text-muted {
+  color: rgba(255, 255, 255, 0.2);
+}
+.qtm-dark-theme code {
+  color: rgba(255, 255, 255, 0.8);
+}
+.qtm-dark-theme pre {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.locale-ja {
+  font-family: Meiryo, "Hiragino Kaku Gothic ProN", "πâÆπâ⌐πé«πâÄΦºÆ", "ProN W3", "πâíπéñπâ¬πé¬", sans-serif;
+}
+
+.locale-ko {
+  font-family: "Malgun Gothic", Gulim, Arial, sans-serif;
+}
+
+.locale-zh-cn {
+  font-family: SimSun, sans-serif;
+}
+.locale-zh-cn h1, .locale-zh-cn h2, .locale-zh-cn h3, .locale-zh-cn h4, .locale-zh-cn h5 {
+  font-family: SimHei, sans-serif;
+}
+
+/*# sourceMappingURL=qtm-text.css.map */

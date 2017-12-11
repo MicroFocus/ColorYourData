@@ -1,1 +1,156 @@
-Under construction... stay tuned!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <title>BVD Community</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/qtm/qtm-fonts.css" type="text/css" />
+  <link rel="stylesheet" href="css/qtm/qtm-text.css" type="text/css" />
+  <link rel="stylesheet" href="css/qtm/qtm-bs3.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    function setTab(id) {
+      setVisibility(id, "community");
+      setVisibility(id, "demos");
+      setVisibility(id, "contact");
+    }
+
+    function setVisibility(id, elementId) {
+      if (id == elementId) {
+        document.getElementById(elementId).style.display = 'block';
+      }
+      else {
+        document.getElementById(elementId).style.display = 'none';
+      }
+    }
+  </script>
+</head>
+
+<body data-spy="scroll" data-target="#navbar">
+
+  <div class="masthead fixed">
+    <div class="logo"></div>
+    <div class="head-text">Business Value Dashboard Community</div>
+  </div>
+
+  <!-- div class="navbox" id="navbar">
+    <ul class="nav nav-tabs nav-stacked" data-offset-top="0" data-spy="affix">
+      <li class="active">
+        <a href="#gs">Getting Started</a>
+      </li>
+      <li>
+        <a href="#cc">Community Content</a>
+      </li>
+      <li>
+        <a href="#dd">Dashboard Demos</a>
+      </li>
+    </ul>
+  </div-->
+
+  <div class="content">
+
+    <div class="section-box">
+      <div id="gs" class="section-header" style="background:rgb(35, 28, 165)">Getting Started</div>
+      <div id="contact" class="service-card-container">
+        <div class="_panel service-card" onclick="window.location.href='https://software.microfocus.com/en-us/software/it-operations-business-value-dashboard'">
+          <img align="center" src="img/bvd_48.svg" width="48" height="48" />
+          <h2>Business Value Dashboard</h2>
+          </a>
+          <p>
+            Learn more about BVD.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='https://software.microfocus.com/en-us/software/operations-bridge-event-correlation#!&swanchor=keyfeatures'">
+          <img align="center" src="img/omiLogo_48.svg" width="48" height="48" />
+          <h2>Operations Bridge Suite</h2>
+          </a>
+          <p>
+            Learn more about the Operations Bridge Suite.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='https://docs.software.hpe.com/OpsB/2017.08/Content/Home.htm'">
+          <img align="center" src="img/Doc-Official.svg" width="48" height="48" />
+          <h2>BVD Online Docs</h2>
+          </a>
+          <p>
+            Read the Operations Bridge Suite and BVD online docs.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="section-box">
+      <div id="cc" class="section-header" style="background: rgb(116, 37, 173)">Community Content</div>
+      <div id="community" class="service-card-container">
+        <div class="_panel service-card" onclick="window.location.href='https://github.houston.softwaregrp.net/opr/ColorYourData/tree/master/widgets'">
+          <img align="center" src="img/Tools-2.svg" width="48" height="48" />
+          <h2>Custom Widgets</h2>
+          </a>
+          <p>
+            BVD has an API to create your own widgets with JavaScript, D3 and jQuery.
+          </p>
+          <p>
+            Click here to learn more about custom widgets and start your own creation with one of the provided examples.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='https://github.houston.softwaregrp.net/opr/ColorYourData/tree/master/generators/node'">
+          <img align="center" src="img/Consolidate.svg" width="48" height="48" />
+          <h2>Sample Generators</h2>
+          <p>
+            Start to work with BVD without having all data sources in place. E.g. to verify your dashboards are working or to prepare
+            for stakeholder demos. We provide a configurable data generator to send simulated real-time data to BVD.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='https://github.houston.softwaregrp.net/opr/ColorYourData/tree/master/connectors'">
+          <img align="center" src="img/Cable-2.svg" width="48" height="48" />
+          <h2>Data Push Connectors</h2>
+          <p>
+            Data push connectors are small adapters to help linking data sources to the BVD push API.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='https://github.houston.softwaregrp.net/opr/ColorYourData'">
+          <img align="center" src="img/Screen-Code.svg" width="48" height="48" />
+          <h2>Git Hub</h2>
+          <p>
+            GitHub location for BVD Community Content.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="section-box">
+      <div id="dd" class="section-header" style="background: rgb(198, 23, 157)">Dashboard Demos</div>
+      <div id="demos" class="service-card-container">
+        <div class="_panel service-card" onclick="window.location.href='https://demo.coloryourdata.io/#/login/demo@coloryourdata.io/colour'">
+          <img align="center" src="img/aobank.png" width="200" />
+          <h2>AO Bank Demo</h2>
+          </a>
+          <p>
+            A BVD dashboard drill-down scenario starting high level business data down to the bank branch IOT level.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='http://52.14.252.205/bvd/login/viewer/Viewer!123'">
+          <img align="center" src="img/train.png" width="200" />
+          <h2>Train Demo</h2>
+          </a>
+          <p>
+            A sophisticated example showing the unlimited design capabilities in the context of a train company.
+          </p>
+        </div>
+        <div class="_panel service-card" onclick="window.location.href='http://18.221.60.125/bvd/login/viewer/Viewer!123'">
+          <img align="center" src="img/mobile_all.png" width="200" />
+          <h2>Mobile Device Demo</h2>
+          </a>
+          <p>
+            A train company dashboard drill-down scenario for mobile devices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">&copy; 2017 EntIT Software LLC</div>
+</body>
+
+</html>
