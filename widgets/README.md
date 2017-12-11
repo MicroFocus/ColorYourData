@@ -1,4 +1,8 @@
 # Custom Widgets
-BVD dashboards can be extended with custom widgets. That is you write Visio shapes for the dashboard designer and JavaScript code to render widgets inside dashboards using the custom widget API.
+BVD dashboards can be extended with custom widgets. You write Visio shapes for the dashboard designer and JavaScript code to render widgets inside dashboards using the custom widget API.
 
-[This feature is not yet released. Stay tuned for updates.]
+The [docs](docs) provide further details including a full API spec.
+
+Pick on of the examples as a starting point for your own first custom widget
+
+
