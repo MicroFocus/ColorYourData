@@ -1,7 +1,7 @@
 # ColorYourData
 
 Color your Data is a collection of tools around the
-[MicroFocus Business Value Dashboard](https://software.microfocus.com/en-us/software/operations-bridge-event-correlation#!&swanchor=keyfeatures).
+[Micro Focus Business Value Dashboard](https://software.microfocus.com/en-us/software/operations-bridge-event-correlation#!&swanchor=keyfeatures).
 
 ## generators
 contains code to generate sample data send to BVD.

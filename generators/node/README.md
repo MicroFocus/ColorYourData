@@ -134,6 +134,6 @@ HTTPS_PROXY / https_proxy
 node ao_bank_gen.js host:port ApiKey
 </pre>
 This generator drives the AO-Bank sample dashboards available from the
-[HPE Marketplace](https://marketplace.saas.hpe.com/itom/category/opsb?product=Business%20Value%20Dashboard&version=All%20versions&company=All%20companies)
+[Micro Focus Marketplace](https://marketplace.microfocus.com/itom/category/opsb?product=Business%20Value%20Dashboard&version=All%20versions&company=All%20companies)
 
 
