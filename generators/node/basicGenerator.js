@@ -45,7 +45,7 @@ var options = [
     names: ['trigger', 't'],
     type: 'integer',
     help: 'Listening port for external trigger.',
-    default: 55123,
+    //default: 55123,
     //hidden: true,
     helpArg: 'PORT'
   }
@@ -163,7 +163,7 @@ if (!opts.file || opts.help) {
 var
   express = require("express"),
   app = express(),
-  port = 55123,
+  port = opts.trigger,
   active = true;
 
 var dryrun = false;
@@ -174,8 +174,6 @@ var
   file = opts.file,
   protocol,
   prefix;
-
-port = opts.trigger;
 
 app.get('/on', function(req, res) {
   active = true;
@@ -189,9 +187,11 @@ app.get('/off', function(req, res) {
   res.send('Generator is off, ' + port);
 });
 
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+if (_.isNumber(port)) {
+  app.listen(port, function() {
+    console.log("Listening on " + port);
+  });
+}
 
 jsonfile.readFile(file, function(err, obj) {
   address = 'localhost';
