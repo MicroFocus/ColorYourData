@@ -109,12 +109,16 @@ The above snippet produces samples with a random size items list, where each ite
 The format of a numerical output can be controlled by a format string via the <code>format</code> property. Formatting makes use of the numeral.js package. E.g. 0.00 formats a number to two decimal digits.
 
 #### Callback function to define values
-We can provide callback function that return a value for a particular property. The callback function must be written in a string which then will be evaluated by generator. Please see example below:
+We can provide callback function that return a value for a particular property. The callback function must be written in a string which then will be evaluated by generator. Two values get passed to this function:
+* data: the data already generated to be sent
+* freq: the frequency configured for this sender
+
+This example will calculate a severity based on a value:
 <pre>
 {
   ...
-  "myProperty": "(function(freq, data){ return 'MyValue_' + (Math.random() + data.i); })"
-  ...
+  "severity": "(function (data, freq) { if (data.value <= 50) {return 'normal';} if (data.value <= 80) {return 'warning';} return 'error';})",
+ ...
 }
 </pre>
 
