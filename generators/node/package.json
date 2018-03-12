@@ -2,7 +2,7 @@
   "name": "generator",
   "description": "BVD data generator",
   "version": "0.0.1",
-  "author": "HP-SW, OpsBridge",
+  "author": "Micro Focus, OpsBridge",
   "engines": {
     "node": "^0.12.0"
   },
