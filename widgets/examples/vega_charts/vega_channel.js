@@ -13,13 +13,13 @@ bvdPluginManager.registerWidget({
   hasData: false,
 
   customProperty: [{
-    id: 'spec',
+    id: 'bvd_spec',
     label: 'Vega-lite Spec',
     type: 'text',
     default: '',
     mandatory: true
   }, {
-    id: 'time',
+    id: 'bvd_time',
     label: 'Timespan in seconds',
     type: 'number',
     default: '10',
@@ -40,7 +40,7 @@ bvdPluginManager.registerWidget({
             width = ctx.bbox.width,
             height = ctx.bbox.height,
             g = svg.append('g')
-              .attr('transform', 'translate(' + 0 + ',' + ctx.bbox.y + ')');
+            .attr('transform', 'translate(' + 0 + ',' + ctx.bbox.y + ')');
 
           const spec = {
             width: width,
@@ -78,9 +78,9 @@ bvdPluginManager.registerWidget({
           const
             visId = 'vis' + Date.now(),
             temp = jQuery('<div id="' + visId + '"></div>')
-              .css('width', width)
-              .css('height', height)
-              .appendTo(document.body);
+            .css('width', width)
+            .css('height', height)
+            .appendTo(document.body);
 
           const opts = {
             mode: 'vega-lite',

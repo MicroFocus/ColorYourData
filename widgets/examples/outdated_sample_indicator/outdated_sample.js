@@ -10,7 +10,7 @@ bvdPluginManager.registerWidget({
   id: 'outdated_sample',
   displayName: 'Detect stale channel data',
 
-  init: function(ctx) {
+  init: function (ctx) {
 
     var toId;
 
@@ -39,13 +39,15 @@ bvdPluginManager.registerWidget({
     }
 
     // subscribe to changes
-    ctx.onChange({ callback: resetTimer });
+    ctx.onChange({
+      callback: resetTimer
+    });
 
     hideShape();
     startTimer();
   },
   customProperty: [{
-    id: 'timeout',
+    id: 'bvd_timeout',
     label: 'Timout in seconds',
     type: 'text',
     default: 10
