@@ -28,6 +28,12 @@ var options = [
     helpArg: 'PROT'
   },
   {
+    names: ['noprefix', 'n'],
+    type: 'bool',
+    help: "Don't use an URL prefix. Default is using bvd-receiver",
+    default: false
+  },
+  {
     names: ['address', 'a'],
     type: 'string',
     help: 'Override address (name or IP and optional port) from config file.',
@@ -38,7 +44,6 @@ var options = [
     names: ['file', 'f'],
     type: 'string',
     help: 'Config file to process',
-    default: 'config.json',
     helpArg: 'FILE'
   },
   {
@@ -202,7 +207,7 @@ jsonfile.readFile(file, function(err, obj) {
   if (opts.address)
     address = opts.address;
 
-  prefix = obj.prefix || 'bvd-receiver';
+  prefix = opts.noprefix ? '' : obj.prefix || 'bvd-receiver';
   apiKey = opts.key || obj.apiKey;
   protocol = opts.protocol || obj.protocol || 'http';
   _.each(obj.generators, function(gen) {
