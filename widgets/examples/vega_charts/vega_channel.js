@@ -2,7 +2,7 @@
  * Use vega Lite charting with data from a channel
  */
 
-/* global bvdPluginManager, jQuery, vega, d3 */
+/* global bvdPluginManager, angular, vega, d3 */
 
 'use strict';
 
@@ -27,7 +27,7 @@ bvdPluginManager.registerWidget({
   }],
 
   init: ctx => {
-    const tDelta = ctx.getProperty('time') * 1000;
+    const tDelta = ctx.getProperty('bvd_time') * 1000;
 
     ctx.scope.jsLoadService.loadScript('https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.2/vega.js').then(() => {
       ctx.scope.jsLoadService.loadScript('https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-rc3/vega-lite.js').then(() => {
@@ -40,7 +40,7 @@ bvdPluginManager.registerWidget({
             width = ctx.bbox.width,
             height = ctx.bbox.height,
             g = svg.append('g')
-            .attr('transform', 'translate(' + 0 + ',' + ctx.bbox.y + ')');
+              .attr('transform', 'translate(' + 0 + ',' + ctx.bbox.y + ')');
 
           const spec = {
             width: width,
@@ -73,14 +73,14 @@ bvdPluginManager.registerWidget({
             }
           };
 
-          jQuery.extend(spec, JSON.parse(ctx.getProperty('spec')));
+          angular.element.extend(spec, JSON.parse(ctx.getProperty('bvd_spec')));
 
           const
             visId = 'vis' + Date.now(),
-            temp = jQuery('<div id="' + visId + '"></div>')
-            .css('width', width)
-            .css('height', height)
-            .appendTo(document.body);
+            temp = angular.element('<div id="' + visId + '"></div>')
+              .css('width', width)
+              .css('height', height)
+              .appendTo(document.body);
 
           const opts = {
             mode: 'vega-lite',

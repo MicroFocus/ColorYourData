@@ -13,14 +13,14 @@ bvdPluginManager.registerWidget({
   displayName: 'Dynamic Image',
   hasData: false,
 
-  init: function (ctx) {
+  init: function(ctx) {
 
-    const interpolate = function (str, data, pattern = /\$\{([^{}]*)\}/g) {
+    const interpolate = function(str, data, pattern = /\$\{([^{}]*)\}/g) {
       if (!data) {
         return str.replace(pattern, '');
       }
 
-      return str.replace(pattern, function (value, property) {
+      return str.replace(pattern, function(value, property) {
         var result = data[property];
 
         if (result === 0) { // escape null values
@@ -42,19 +42,19 @@ bvdPluginManager.registerWidget({
       .attr('width', ctx.bbox.width)
       .attr('height', ctx.bbox.height);
 
-    const setImage = function (envelope) {
+    const setImage = function(envelope) {
       if (!envelope || !envelope.data) {
         return;
       }
 
       // update the image URL. Interpolate potential variables in the URL string with the received data
-      image.attr('xlink:href', interpolate(ctx.getProperty('image_url'), envelope.data));
+      image.attr('xlink:href', interpolate(ctx.getProperty('bvd_image_url'), envelope.data));
     };
 
     /* get initial state of this widget*/
     ctx.onInit({
       itemCount: 1,
-      callback: function (envelopeArray) {
+      callback: function(envelopeArray) {
         if (envelopeArray && envelopeArray.length > 0) {
           setImage(envelopeArray[0]);
         }
