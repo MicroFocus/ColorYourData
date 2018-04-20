@@ -1,132 +1,138 @@
 ﻿'use strict';
 
-var os = require('os');
-var request = require('request');
-var _ = require('lodash');
-var jsonfile = require('jsonfile');
-var numeral = require('numeral');
-var dd = require('dashdash');
-var global = {};
+/* eslint-disable no-console, no-process-exit, line-comment-position, sort-vars, no-eval */
 
-var options = [
-  {
-    names: ['help', 'h'],
-    type: 'bool',
-    help: 'Print this help and exit.'
-  },
-  {
-    names: ['key', 'k'],
-    type: 'string',
-    help: 'Override API key from config file.',
-    helpArg: 'KEY'
-  },
-  {
-    names: ['protocol', 'p'],
-    type: 'string',
-    help: 'Override protocol (http/https) from config file.',
-    //default: 'http',
-    helpArg: 'PROT'
-  },
-  {
-    names: ['noprefix', 'n'],
-    type: 'bool',
-    help: "Don't use an URL prefix. Default is using bvd-receiver",
-    default: false
-  },
-  {
-    names: ['address', 'a'],
-    type: 'string',
-    help: 'Override address (name or IP and optional port) from config file.',
-    //default: 'localhost',
-    helpArg: 'ADDR'
-  },
-  {
-    names: ['file', 'f'],
-    type: 'string',
-    help: 'Config file to process',
-    helpArg: 'FILE'
-  },
-  {
-    names: ['trigger', 't'],
-    type: 'integer',
-    help: 'Listening port for external trigger.',
-    //default: 55123,
-    //hidden: true,
-    helpArg: 'PORT'
-  }
-];
+const request = require('request');
+const _ = require('lodash');
+const jsonfile = require('jsonfile');
+const numeral = require('numeral');
+const dashdash = require('dashdash');
 
+const parserOptions = [{
+  names: ['help', 'h'],
+  type: 'bool',
+  help: 'Print this help and exit.'
+}, {
+  names: ['key', 'k'],
+  type: 'string',
+  help: 'Override API key from config file.',
+  helpArg: 'KEY'
+}, {
+  names: ['protocol', 'p'],
+  type: 'string',
+  help: 'Override protocol (http/https) from config file.',
+
+  // default: 'http',
+  helpArg: 'PROT'
+}, {
+  names: ['noprefix', 'n'],
+  type: 'bool',
+  help: 'Don\'t use an URL prefix. Default is using bvd-receiver',
+  default: false
+}, {
+  names: ['address', 'a'],
+  type: 'string',
+  help: 'Override address (name or IP and optional port) from config file.',
+
+  // default: 'localhost',
+  helpArg: 'ADDR'
+}, {
+  names: ['file', 'f'],
+  type: 'string',
+  help: 'Config file to process',
+  helpArg: 'FILE'
+}, {
+  names: ['trigger', 't'],
+  type: 'integer',
+  help: 'Listening port for external trigger.',
+
+  // default: 55123,
+  // hidden: true,
+  helpArg: 'PORT'
+}, {
+  names: ['debug', 'd'],
+  type: 'bool',
+  hidden: true,
+  default: false
+}];
+
+/* this function can be used by value functions to generate special numbers */
 global.ziggurat = function() {
+  let jsr = 123456789;
 
-  var jsr = 123456789;
+  const wn = Array(128);
+  const fn = Array(128);
+  const kn = Array(128);
 
-  var wn = Array(128);
-  var fn = Array(128);
-  var kn = Array(128);
+  const shr3 = function() {
+    const jz = jsr;
+    let jzr = jsr;
 
-  function RNOR() {
-    var hz = SHR3();
-    var iz = hz & 127;
-    return (Math.abs(hz) < kn[iz]) ? hz * wn[iz] : nfix(hz, iz);
-  }
+    jzr ^= jzr << 13;
+    jzr ^= jzr >>> 17;
+    jzr ^= jzr << 5;
+    jsr = jzr;
 
-  this.nextGaussian = function() {
-    return RNOR();
-  }
+    return (jz + jzr) | 0;
+  };
 
-  function nfix(hz, iz) {
-    var r = 3.442619855899;
-    var r1 = 1.0 / r;
-    var x;
-    var y;
+  const uni = function() {
+    return 0.5 * (1 + shr3() / -Math.pow(2, 31));
+  };
+
+  const nfix = function(hz, iz) {
+    const r = 3.442619855899;
+    const r1 = 1.0 / r;
+    let x;
+    let y;
+
     while (true) {
       x = hz * wn[iz];
-      if (iz == 0) {
-        x = (-Math.log(UNI()) * r1);
-        y = -Math.log(UNI());
+      if (iz === 0) {
+        x = -Math.log(uni()) * r1;
+        y = -Math.log(uni());
         while (y + y < x * x) {
-          x = (-Math.log(UNI()) * r1);
-          y = -Math.log(UNI());
+          x = -Math.log(uni()) * r1;
+          y = -Math.log(uni());
         }
-        return (hz > 0) ? r + x : -r - x;
+
+        return hz > 0 ? r + x : -r - x;
       }
 
-      if (fn[iz] + UNI() * (fn[iz - 1] - fn[iz]) < Math.exp(-0.5 * x * x)) {
+      if (fn[iz] + uni() * (fn[iz - 1] - fn[iz]) < Math.exp(-0.5 * x * x)) {
         return x;
       }
-      hz = SHR3();
+      hz = shr3();
       iz = hz & 127;
 
       if (Math.abs(hz) < kn[iz]) {
-        return (hz * wn[iz]);
+        return hz * wn[iz];
       }
     }
-  }
+  };
 
-  function SHR3() {
-    var jz = jsr;
-    var jzr = jsr;
-    jzr ^= (jzr << 13);
-    jzr ^= (jzr >>> 17);
-    jzr ^= (jzr << 5);
-    jsr = jzr;
-    return (jz + jzr) | 0;
-  }
+  const rnor = function() {
+    const hz = shr3();
+    const iz = hz & 127;
 
-  function UNI() {
-    return 0.5 * (1 + SHR3() / -Math.pow(2, 31));
-  }
+    return Math.abs(hz) < kn[iz] ? hz * wn[iz] : nfix(hz, iz);
+  };
 
-  function zigset() {
+  this.nextGaussian = function() {
+    return rnor();
+  };
+
+  const zigset = function() {
     // seed generator based on current time
     jsr ^= new Date().getTime();
 
-    var m1 = 2147483648.0;
-    var dn = 3.442619855899;
-    var tn = dn;
-    var vn = 9.91256303526217e-3;
+    const m1 = 2147483648.0;
+    let dn = 3.442619855899;
+    let tn = dn;
+    const vn = 9.91256303526217e-3;
 
-    var q = vn / Math.exp(-0.5 * dn * dn);
+    const q = vn / Math.exp(-0.5 * dn * dn);
+
     kn[0] = Math.floor((dn / q) * m1);
     kn[1] = 0;
 
@@ -136,102 +142,83 @@ global.ziggurat = function() {
     fn[0] = 1.0;
     fn[127] = Math.exp(-0.5 * dn * dn);
 
-    for (var i = 126; i >= 1; i--) {
+    for (let i = 126; i >= 1; i--) {
       dn = Math.sqrt(-2.0 * Math.log(vn / dn + Math.exp(-0.5 * dn * dn)));
       kn[i + 1] = Math.floor((dn / tn) * m1);
       tn = dn;
       fn[i] = Math.exp(-0.5 * dn * dn);
       wn[i] = dn / m1;
     }
-  }
+  };
+
   zigset();
 };
 
-var parser = dd.createParser({ options: options });
+const parser = dashdash.createParser({
+  options: parserOptions
+});
+
+let cmdLineOpts;
+
 try {
-  var opts = parser.parse(process.argv);
-} catch (e) {
-  console.error('foo: error: %s', e.message);
+  cmdLineOpts = parser.parse(process.argv);
+} catch (err) {
+  console.error('foo: error: %s', err.message);
   process.exit(1);
 }
 
-if (!opts.file || opts.help) {
-  var help = parser.help({ includeEnv: true }).trimRight();
-  console.log('usage: node basicGenerator.js [OPTIONS]\n'
-    + 'options:\n'
-    + help);
+if (!cmdLineOpts.file || cmdLineOpts.help) {
+  const help = parser.help({
+    includeEnv: true
+  }).trimRight();
+
+  console.log('usage: node basicGenerator.js [OPTIONS]\n' +
+    'options:\n' +
+    help);
   process.exit(0);
 }
 
+/* external trigger server */
+const express = require('express');
+const app = express(),
+  port = cmdLineOpts.trigger;
+let active = true;
 
-// external trigger server
-var
-  express = require("express"),
-  app = express(),
-  port = opts.trigger,
-  active = true;
+const dryrun = false;
 
-var dryrun = false;
-
-var
-  address,
+let address,
   apiKey,
-  file = opts.file,
   protocol,
   prefix;
+const file = cmdLineOpts.file;
 
-app.get('/on', function(req, res) {
+app.get('/on', (req, res) => {
   active = true;
   console.log('Generator is on, ' + port);
   res.send('Generator is on, ' + port);
 });
 
-app.get('/off', function(req, res) {
+app.get('/off', (req, res) => {
   active = false;
   console.log('Generator is off, ' + port);
   res.send('Generator is off, ' + port);
 });
 
 if (_.isNumber(port)) {
-  app.listen(port, function() {
-    console.log("Listening on " + port);
+  app.listen(port, () => {
+    console.log('Listening on ' + port);
   });
 }
 
-jsonfile.readFile(file, function(err, obj) {
-  address = 'localhost';
-  if (obj.host)
-    address = obj.host;
-  if (obj.port && obj.host)
-    address = obj.host + ':' + obj.port;
-  if (opts.address)
-    address = opts.address;
+const interpolate = function(str, data) {
+  const pattern = /\$\{([^{}]*)\}/g;
 
-  prefix = opts.noprefix ? '' : obj.prefix || 'bvd-receiver';
-  apiKey = opts.key || obj.apiKey;
-  protocol = opts.protocol || obj.protocol || 'http';
-  _.each(obj.generators, function(gen) {
-    gen._r = gen._r || {};
-    var sender = new GenericSender(
-      function(sample) {
-        _.each(_.keys(gen.sample), function(prop) {
-          sample[prop] = calcValue(gen.sample[prop], gen.frequency, gen._r);
-          gen._r[prop] = sample[prop];
-        })
-      }, gen.frequency, gen.tolerance, gen.dims, gen.tags
-    );
-    sender.run();
-  });
-})
-
-function interpolate(str, data) {
-  var pattern = /\$\{([^{}]*)\}/g;
   if (!data) {
     return str.replace(pattern, '');
   }
 
-  return str.replace(pattern, function(value, property) {
-    var result = data[property];
+  return str.replace(pattern, (value, property) => {
+    let result = data[property];
 
     if (result === 0) { // escape null values
       result = String(result);
@@ -239,162 +226,212 @@ function interpolate(str, data) {
 
     return result;
   });
-}
+};
 
-
-function calcValue(obj, freq, data) {
-  var evalObj;
-  try {
-    if (_.isString(obj)) {
-      evalObj = eval('(' + obj + ')');
-    }
-  } catch (e) {
-    // console.log(e);
-  }
-  if (_.isFunction(evalObj)) { // if user provide callback function, use this to generate prop's value
-    return evalObj(data, freq);
-  }
-  if (_.isString(obj)) return interpolate(obj, data);
-  if (_.isNumber(obj)) return obj;
-  if (_.isArray(obj)) return _.sample(obj);
-  if (obj.eval) {
-    return (function(str) {
-      return eval(str);
-    }).call(data, obj.eval);
-  }
-  if (obj.ith) {
-    return obj.ith[data.i];
-  }
-  if (obj.range) {
-    if (obj._offset == undefined)
-      obj._offset = 0;
-    if (obj._idx == undefined)
-      obj._idx = -1;
-    if (obj.trigger == undefined)
-      obj._running = true;
-    if (obj.trigger && !obj._route) {
-      app.get('/' + obj.trigger, function(req, res) {
-        if (!obj._running && active) {
-          obj._running = true;
-          console.log('######## trigger started: ' + obj.trigger);
-          res.send('trigger started: ' + obj.trigger);
-        }
-        else {
-          if (obj._running) {
-            console.log('######## trigger already running: ' + obj.trigger);
-            res.send('trigger already running: ' + obj.trigger);
-          }
-          else {
-            console.log('######## generator is not active');
-            res.send('generator is not active');
-          }
-        }
-      });
-      obj._route = true;
-      console.log('######## route defined: ' + obj.trigger);
-    }
-    if (obj.incr && obj._running) {
-      obj._offset += obj.incr;
-      obj._idx++;
-    }
-    if (obj._idx === obj.steps) {
-      obj._idx = -1;
-      obj._offset = 0;
-      if (obj._route) {
-        obj._running = false;
-        console.log('######## trigger stopped: ' + obj.trigger);
-      }
-    }
-    var range = Math.abs(obj.range[0] - obj.range[1]);
-    var val = Math.random() * range + obj.range[0] + obj._offset;
-    if (obj.format)
-      val = numeral(val).format(obj.format);
-    return val;
-  }
-  if (obj.scene) {
-    obj.randomness = obj.randomness || 0;
-    if (!obj._plan) {
-      var r = generatePlan(obj.scene, freq);
-      obj._plan = r.plan;
-      obj._totalSteps = r.totalSteps
-      obj._idx = 0;
-    }
-
-    var val = (2 * Math.random() * obj.randomness / 2) + obj._plan[obj._idx++] - obj.randomness / 2;
-    if (obj._idx == obj._totalSteps)
-      obj._idx = 0;
-    if (obj.format)
-      val = numeral(val).format(obj.format);
-    //console.log(JSON.stringify(obj));
-    return val;
-  }
-  if (obj.group) {
-    var
-      size = obj.group.size,
-      itemPattern = obj.group.item,
-      changedIndex = -1,
-      change = obj.group.change || 'all';
-
-    if (_.isArray(size)) {
-      size = _.random(size[0], size[1]);
-    }
-    if (change === 'single')
-      changedIndex = Math.floor(Math.random() * size);
-    var items = _.times(size, function(i) {
-      var item = obj.items && obj.items[i] || itemPattern;
-      if (i === changedIndex)
-        item = itemPattern;
-      item._r = item._r || {};
-      return _.mapValues(item, function(val, key) {
-        var r = calcValue(val, freq, _.merge({ i: i }, item._r));
-        item._r[key] = r;
-        return r;
-      });
-    });
-    obj.items = items;
-    if (obj.group.sort) {
-      items = _.sortBy(items, function(o) { return o[obj.group.sort] });
-    }
-    return items;
-  }
-}
-
-function generatePlan(scene, freq) {
-  var
-    plan = [],
+const generatePlan = function(scene, freq) {
+  let plan = [],
     totalSteps = 0;
 
-  _.forEach(scene, (phase) => {
-    var
-      start = phase.phase[0],
+  _.forEach(scene, phase => {
+    const start = phase.phase[0],
       end = phase.phase[1],
       steps = phase.steps || Math.round(phase.time / freq),
       incr = (end - start) / steps;
 
     totalSteps += steps;
-    plan = _.concat(plan, _.times(steps, (i) => { return start + i * incr; }));
+    plan = _.concat(plan, _.times(steps, i => {
+      return start + i * incr;
+    }));
   });
-  return { plan, totalSteps };
-}
+
+  return {
+    plan,
+    totalSteps
+  };
+};
+
+const calcValue = function(sampleDef, sampleName, freq, data, prevValue) {
+  const calcRange = function(rangeDef) {
+    if (rangeDef._offset === undefined) {
+      rangeDef._offset = 0;
+    }
+    if (rangeDef._idx === undefined) {
+      rangeDef._idx = -1;
+    }
+    if (rangeDef.trigger === undefined) {
+      rangeDef._running = true;
+    }
+    if (rangeDef.trigger && !rangeDef._route) {
+      app.get('/' + rangeDef.trigger, (req, res) => {
+        if (!rangeDef._running && active) {
+          rangeDef._running = true;
+          console.log('######## trigger started: ' + rangeDef.trigger);
+          res.send('trigger started: ' + rangeDef.trigger);
+        } else if (rangeDef._running) {
+          console.log('######## trigger already running: ' + rangeDef.trigger);
+          res.send('trigger already running: ' + rangeDef.trigger);
+        } else {
+          console.log('######## generator is not active');
+          res.send('generator is not active');
+        }
+      });
+      rangeDef._route = true;
+      console.log('######## route defined: ' + rangeDef.trigger);
+    }
+    if (rangeDef.incr && rangeDef._running) {
+      rangeDef._offset += rangeDef.incr;
+      rangeDef._idx += 1;
+    }
+    if (rangeDef._idx === rangeDef.steps) {
+      rangeDef._idx = -1;
+      rangeDef._offset = 0;
+      if (rangeDef._route) {
+        rangeDef._running = false;
+        console.log('######## trigger stopped: ' + rangeDef.trigger);
+      }
+    }
+    const range = Math.abs(rangeDef.range[0] - rangeDef.range[1]);
+    let val = Math.random() * range + rangeDef.range[0] + rangeDef._offset;
+
+    if (rangeDef.format) {
+      if (rangeDef.format === 'int') {
+        val = Math.round(val + 0.5);
+      } else {
+        val = numeral(val).format(rangeDef.format);
+      }
+    }
+
+    return val;
+  }; // end: calcRange
+
+  const calcScene = function(sceneDef, freq) {
+    sceneDef.randomness = sceneDef.randomness || 0;
+    if (!sceneDef._plan) {
+      const generatedPlan = generatePlan(sceneDef.scene, freq);
+
+      sceneDef._plan = generatedPlan.plan;
+      sceneDef._totalSteps = generatedPlan.totalSteps;
+      sceneDef._idx = 0;
+    }
+
+    let val = (2 * Math.random() * sceneDef.randomness / 2) + sceneDef._plan[sceneDef._idx++] - sceneDef.randomness / 2;
+
+    if (sceneDef._idx === sceneDef._totalSteps) {
+      sceneDef._idx = 0;
+    }
+    if (sceneDef.format) {
+      val = numeral(val).format(sceneDef.format);
+    }
+
+    return val;
+  }; // end: calcScene
+
+  const calcGroup = function(groupDef, freq) {
+    let size = groupDef.group.size,
+      changedIndex = -1;
+    const change = groupDef.group.change || 'all',
+      itemPattern = groupDef.group.item;
+
+    if (_.isArray(size)) {
+      size = _.random(size[0], size[1]);
+    }
+    if (change === 'single') {
+      changedIndex = Math.floor(Math.random() * size);
+    }
+    let items = _.times(size, i => {
+      let item = groupDef.items && groupDef.items[i] || itemPattern;
+
+      if (i === changedIndex) {
+        item = itemPattern;
+      }
+      item._r = item._r || {};
+
+      return _.mapValues(item, (val, key) => {
+        const result = calcValue(val, key, freq, _.merge({
+          i: i
+        }, item._r));
+
+        item._r[key] = result;
+
+        return result;
+      });
+    });
+
+    groupDef.items = items;
+    if (groupDef.group.sort) {
+      items = _.sortBy(items, item => {
+        return item[groupDef.group.sort];
+      });
+    }
+
+    return items;
+  }; // end: calcGroup
+
+  let evalObj;
+
+  try {
+    if (_.isString(sampleDef)) {
+      evalObj = eval('(' + sampleDef + ')');
+    }
+  } catch (err) {
+    if (cmdLineOpts.debug) {
+      // console.log('Error parsing sample definition:', sampleDef, err);
+    }
+  }
+  if (_.isFunction(evalObj)) { // if user provide callback function, use this to generate prop's value
+    return evalObj(data, freq, prevValue);
+  }
+  if (_.isString(sampleDef)) {
+    return interpolate(sampleDef, data);
+  }
+  if (_.isNumber(sampleDef)) {
+    return sampleDef;
+  }
+  if (_.isArray(sampleDef)) {
+    return _.sample(sampleDef);
+  }
+  if (sampleDef.eval) {
+    return function(str) {
+      return eval(str);
+    }.call(data, sampleDef.eval);
+  }
+  if (sampleDef.ith) {
+    return sampleDef.ith[data.i];
+  }
+  if (sampleDef.range) {
+    return calcRange(sampleDef);
+  }
+  if (sampleDef.scene) {
+    return calcScene(sampleDef, freq);
+  }
+  if (sampleDef.group) {
+    return calcGroup(sampleDef, freq);
+  }
+}; // end: calcValue
 
 // -------------------------------------------
 // -- generic sender --
 
-function Event() {
+const Event = function() {
   this.time = new Date().getTime();
-}
+};
 
-function GenericSender(fun, delay, tolerance, dims, tags) {
-  var calcDelay = function() {
+const GenericSender = function(fun, delay, tolerance, dims, tags) {
+  const calcDelay = function() {
     return Math.round(delay + (2 * tolerance * Math.random()) - tolerance);
   };
-  var sender = function(repeatFunc) {
-    var evt = new Event();
-    fun(evt);
+  let prevEvent = {};
 
-    var urlStr = protocol + '://' + address;
-    if (prefix)
+  const sender = function(repeatFunc) {
+    const evt = new Event();
+
+    fun(evt, prevEvent);
+
+    let urlStr = protocol + '://' + address;
+
+    if (prefix) {
       urlStr += '/' + prefix;
+    }
     urlStr += '/api/submit/' + apiKey;
 
     if (!_.isEmpty(dims)) {
@@ -407,6 +444,7 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
 
     if (active) {
       console.log(JSON.stringify(evt));
+      prevEvent = evt;
       if (!dryrun) {
         request.post({
           url: urlStr,
@@ -416,33 +454,57 @@ function GenericSender(fun, delay, tolerance, dims, tags) {
           body: evt,
           json: true,
           rejectUnauthorized: false
-        },
-          function(error, response, body) {
-            if (error) {
-              console.log('Generic Sender (post to ' + urlStr + '): ' + error);
-            } else {
-              if (response.statusCode != 200) {
-                console.log(JSON.stringify(body));
-                console.log(urlStr);
-              }
-            }
-            repeatFunc && setTimeout(repeatFunc, calcDelay());
+        }, (error, response, body) => {
+          if (error) {
+            console.log('Generic Sender (post to ' + urlStr + '): ' + error);
+          } else if (response.statusCode !== 200) {
+            console.log(JSON.stringify(body));
+            console.log(urlStr);
           }
-        );
-      }
-      else {
+          repeatFunc && setTimeout(repeatFunc, calcDelay());
+        });
+      } else {
         repeatFunc && setTimeout(repeatFunc, calcDelay());
       }
-    }
-    else {
+    } else {
       repeatFunc && setTimeout(repeatFunc, calcDelay());
     }
-
   };
+
   this.run = function() {
-    var looper = function() {
+    const looper = function() {
       sender(looper);
     };
+
     looper();
   };
-}
+}; // end: GenericSender
+
+/* Start parsing of JSON file */
+jsonfile.readFile(file, (err, obj) => {
+  address = 'localhost';
+  if (obj.host) {
+    address = obj.host;
+  }
+  if (obj.port && obj.host) {
+    address = obj.host + ':' + obj.port;
+  }
+  if (cmdLineOpts.address) {
+    address = cmdLineOpts.address;
+  }
+
+  prefix = cmdLineOpts.noprefix ? '' : obj.prefix || 'bvd-receiver';
+  apiKey = cmdLineOpts.key || obj.apiKey;
+  protocol = cmdLineOpts.protocol || obj.protocol || 'http';
+  _.each(obj.generators, generator => {
+    generator._result = generator._result || {};
+    const sender = new GenericSender((sample, prevSample) => {
+      _.each(_.keys(generator.sample), sampleName => {
+        sample[sampleName] = calcValue(generator.sample[sampleName], sampleName, generator.frequency, generator._result, prevSample);
+        generator._result[sampleName] = sample[sampleName];
+      });
+    }, generator.frequency, generator.tolerance, generator.dims, generator.tags);
+
+    sender.run();
+  });
+});

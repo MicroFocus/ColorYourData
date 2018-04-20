@@ -36,6 +36,48 @@ If no config file is specified, the default is config.json.
 
 The trigger-port is used to spawn the trigger listener. Default is port 55123. Triggers can be specified as described below. Two default triggers /on and /off are always active. Per default all generators are on and can be muted with the /off trigger.
 
+### Config file format
+```json
+{
+  "host": "localhost",
+  "port": 4001,
+  "prefix": "bvd-receiver",
+  "protocol": "http",
+  "apiKey": "081508150815081508150815",
+  "generators": [
+    {
+      "name":"Range fluid value",
+      "sample": {
+        "value": {
+          "range": [0,100]
+          }
+      },
+      "frequency": 5000,
+      "tolerance": 500,
+      "tags":"sample",
+      "dims":"host,metric"
+    }
+    ]
+}
+```
+
+* `host`: BVD receiver hostname to send the samples to
+* `port`: Listening port of the BVD receiver
+* `prefix`: The part of the BVD receiver URL which is between the hostname and `/api/submit` e.g. `http://www.example.com/bvd-receiver/api/submit/<apikey>`
+* `protocol`: Transfer protocol. Either `http` or `https`
+* `apiKey`: BVD API Key as displayed in the BVD UI
+* `generators`: An array of data generators as descibed below
+
+### Data generator
+A data generator describes one or multiple BVD data channels which are generated with a certain data format.
+
+#### Default properties
+* `name`: The name of this data generator
+* `sample`: The data generation rules as described below
+* `frequency` and `tolerance`: The frequency this data generator will send data to BVD and its random maximum deviation from this frequency.
+* `tags`: The tags of this data generator
+* `dims`: The dimensions
+
 ### Describing values
 
 Values can be generated in multiple ways:
@@ -44,10 +86,14 @@ Values can be generated in multiple ways:
 ```json
 "value": {"range": [0,100]}
 ```
+This will generate float numbers between 0 and 100.
+
 #### Value out of a list:
 ```json
 "value": ["good", "bad", "medium"]
 ```
+This will pick a random value out of this list.
+
 #### Range with auto increment
 As value range with auto increment by give value (incr) and number of steps (steps). After the number of steps the offset will be reset to 0. The growing offset will be added to the random value out of the range array:
 ```json
@@ -106,12 +152,13 @@ Group introduces a group, with the item definition below. Inside an item the sam
 The above snippet produces samples with a random size items list, where each item contains an id, a severity and a performance float value. The specified format and randomness at the end are applied to the value calculation inside the items.
 
 #### Formatting numerical values
-The format of a numerical output can be controlled by a format string via the <code>format</code> property. Formatting makes use of the numeral.js package. E.g. 0.00 formats a number to two decimal digits.
+The format of a numerical output can be controlled by a format string via the <code>format</code> property. Formatting makes use of the numeral.js package. E.g. 0.00 formats a number to two decimal digits. Or the value `"int"`can be used to generate an integer value.
 
 #### Callback function to define values
 We can provide callback function that return a value for a particular property. The callback function must be written in a string which then will be evaluated by generator. Two values get passed to this function:
-* data: the data already generated to be sent
-* freq: the frequency configured for this sender
+* `data`: the data already generated to be sent
+* `freq`: the frequency configured for this sender
+* `prevData`: the last data generated. Can be used to generate data based on the previously generated data.
 
 This example will calculate a severity based on a value:
 ```
