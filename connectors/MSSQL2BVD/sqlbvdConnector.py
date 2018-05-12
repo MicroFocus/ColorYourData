@@ -9,10 +9,6 @@ import time
 import http.client
 http.client.HTTPConnection.debuglevel = 1
 
-#SQL connection parameters
-server = "10.23.67.30:1456"; # Add Server Hostname with IP to access the DB, Eg: 10.23.67.30:1456
-user = "UserName" # Add Username Here Eg: sqladmin
-password = "Password" # Password
 
 #request to BVD function
 def postRequest(url, headers=None, data=None):
@@ -27,7 +23,7 @@ def postRequest(url, headers=None, data=None):
 while(1):
 
     #connection request
-    conn = pymssql.connect(server, user, password, "event") # Give Database name here
+    conn = pymssql.connect(server, user, password, database) # Give Database name here
     cursor = conn.cursor()
 
     # you must call commit() to persist your data if you don't set autocommit to True
@@ -48,7 +44,7 @@ while(1):
     json_data = json.dumps(list_obj)
 
     #Post request to BVD instance, change dims accordingly, for e.g /dims/querytype
-    raw_data = postRequest('http://BVDSERVER:RECIEVERPORT/api/submit/APIKEY/dims/querytype', [{'key':'Content-Type', 'value':'application/json'}], json.dumps(list_obj).encode('ascii'))
+    raw_data = postRequest(bvdUrl + '/api/submit/' + bvdApiKey + '/dims/querytype', [{'key':'Content-Type', 'value':'application/json'}], json.dumps(jsonDataForBVD).encode('ascii'))
     print (list_obj)
     time.sleep(sleep)
     conn.close()
