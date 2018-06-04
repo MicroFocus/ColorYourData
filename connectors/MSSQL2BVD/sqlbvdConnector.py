@@ -2,7 +2,7 @@ import urllib
 from urllib.request import urlopen, Request
 import pymssql
 import json
-from sqlConnectorConfig import bvdUrl, bvdApiKey, sleep
+from sqlConnectorConfig import bvdUrl, bvdApiKey, sleep, hst, srvr, prt, usr, pwd, db
 import time
 
 #SQL to Business value dashboard connector, Created by Mohamed Raoof
@@ -23,7 +23,13 @@ def postRequest(url, headers=None, data=None):
 while(1):
 
     #connection request
-    conn = pymssql.connect(server, user, password, database) # Give Database name here
+    conn = pymssql.connect(
+        host=hst,
+        server=srvr,
+        port=prt,
+        user=usr,
+        password=pwd,
+        database=db)
     cursor = conn.cursor()
 
     # you must call commit() to persist your data if you don't set autocommit to True
