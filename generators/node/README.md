@@ -40,9 +40,8 @@ The trigger-port is used to spawn the trigger listener. Default is port 55123. T
 ```json
 {
   "host": "localhost",
-  "port": 4001,
   "prefix": "bvd-receiver",
-  "protocol": "http",
+  "protocol": "https",
   "apiKey": "081508150815081508150815",
   "generators": [
     {
@@ -170,7 +169,7 @@ This example will calculate a severity based on a value:
 ```
 
 #### URL prefix
-With BVD 10.61, the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
+Starting with BVD 10.61 (containerized BVD), the receiver URL needs a prefix: <code>bvd-receiver</code>. This can be specified with the optional property <code>prefix</code>.
 
 #### Using HTTP(s) proxies
 In case you need to specify a proxy, please do so using environment variables like
