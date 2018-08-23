@@ -30,9 +30,9 @@ where OPTIONS is one or more from
 </pre>
 Specify a config file with basic info like host, port, protocol and API key, plus add a list of generators with samples and update frequency.
 See config.json for an example.
-All options from the config file can be overridden by comannd line options as shown above.
+Most options from the config file can be overridden by comannd line options as shown above.
 
-If no config file is specified, the default is config.json.
+If no config file name is specified, the default is config.json.
 
 The trigger-port is used to spawn the trigger listener. Default is port 55123. Triggers can be specified as described below. Two default triggers /on and /off are always active. Per default all generators are on and can be muted with the /off trigger.
 
@@ -41,6 +41,7 @@ The trigger-port is used to spawn the trigger listener. Default is port 55123. T
 {
   "host": "localhost",
   "prefix": "bvd-receiver",
+  "port": 443,
   "protocol": "https",
   "apiKey": "081508150815081508150815",
   "generators": [
@@ -56,7 +57,7 @@ The trigger-port is used to spawn the trigger listener. Default is port 55123. T
       "tags":"sample",
       "dims":"host,metric"
     }
-    ]
+  ]
 }
 ```
 
