@@ -1,45 +1,49 @@
+'use strict';
+
 /**
  * The pumping circle widget
  * This widget shows a circle, that changes its radius,
  * based on the data coming through the channel
  */
 
+/* globals bvdPluginManager */
+
 bvdPluginManager.registerWidget({
   id: 'pumping_circle',
   displayName: 'The Pumping Circle',
 
   init: function(ctx) {
-
-    var
-      circle_group = ctx.svgGroup,
+    const circleGroup = ctx.svgGroup,
       range = ctx.getProperty('bvd_range') || 100;
 
-
     console.log('range = ' + range);
-    // hide the placeholder
+
+    /* hide the placeholder */
     ctx.placeHolder.attr('style', 'visibility: hidden;');
 
-    var circle = circle_group
+    const circle = circleGroup
       .attr('transform', 'translate(' + ((ctx.bbox.x + ctx.bbox.width / 2)) + ',' + (ctx.bbox.y + ctx.bbox.height / 2) + ')')
-      .append("circle")
-      .attr("r", ctx.bbox.width / 4)
-      .attr("cx", 0)
-      .attr("cy", 0);
+      .append('circle')
+      .attr('r', ctx.bbox.width / 4)
+      .attr('cx', 0)
+      .attr('cy', 0);
 
-    function pumpCircle(envelope) {
+    const pumpCircle = function(envelope) {
       if (!envelope || !envelope.data) {
         return;
       }
-      var
+
+      const currentColor = circle.attr('fill'),
         msg = envelope.data,
-        r = msg[ctx.dataField] / range * ctx.bbox.width / 2;
+        radius = msg[ctx.dataField] / range * ctx.bbox.width / 2;
 
       circle.transition()
         .duration(300)
-        .attr("r", r);
-    }
+        .attr('r', radius)
+        .attr('fill', ctx.getStatusColor() || currentColor);
+    };
 
-    // get initial state
+    /* get initial state of this widget*/
     ctx.onInit({
       itemCount: 1,
       callback: function(envelopeArray) {
@@ -49,9 +53,20 @@ bvdPluginManager.registerWidget({
       }
     });
 
-    // subscribe to changes
-    ctx.onChange({ callback: pumpCircle });
+    /* subscribe to changes */
+    ctx.onChange({
+      callback: pumpCircle
+    });
   },
 
-  defaults: { bvd_range: 100 }
+  customProperty: [{
+    id: 'bvd_range',
+    label: 'Range',
+    type: 'number',
+    default: 100
+  }, {
+    id: 'opr_coloring_rule',
+    label: 'Coloring Rule',
+    type: 'text'
+  }]
 });
