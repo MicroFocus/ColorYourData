@@ -250,7 +250,7 @@ const generatePlan = function(scene, freq) {
   };
 };
 
-const calcValue = function(sampleDef, sampleName, freq, data, prevValue) {
+const calcValue = function(sampleDef, sampleName, freq, data, prevSample) {
   const calcRange = function(rangeDef) {
     if (rangeDef._offset === undefined) {
       rangeDef._offset = 0;
@@ -303,6 +303,31 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevValue) {
 
     return val;
   }; // end: calcRange
+
+  const calcVelocity = function(veloDef, sampleName, prevSample) {
+    const range = Math.abs(veloDef.velocity[2]);
+    let val = (Math.random() * 2 * range) - range;
+    let newVal = 0;
+
+    if (prevSample && _.isNumber(prevSample[sampleName]))
+      newVal = prevSample[sampleName] + val;
+
+    if (newVal < veloDef.velocity[0])
+      newVal = veloDef.velocity[0] + 0.5 * Math.abs(val);
+
+    if (newVal > veloDef.velocity[1])
+      newVal = veloDef.velocity[1] - 0.5 * Math.abs(val);
+
+    if (veloDef.format) {
+      if (veloDef.format === 'int') {
+        newVal = Math.round(newVal + 0.5);
+      } else {
+        newVal = numeral(newVal).format(veloDef.format);
+      }
+    }
+
+    return newVal;
+  }
 
   const calcScene = function(sceneDef, freq) {
     sceneDef.randomness = sceneDef.randomness || 0;
@@ -375,11 +400,11 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevValue) {
     }
   } catch (err) {
     if (cmdLineOpts.debug) {
-      // console.log('Error parsing sample definition:', sampleDef, err);
+      console.log('Error parsing sample definition:', sampleDef, err);
     }
   }
   if (_.isFunction(evalObj)) { // if user provide callback function, use this to generate prop's value
-    return evalObj(data, freq, prevValue);
+    return evalObj(data, freq, prevSample);
   }
   if (_.isString(sampleDef)) {
     return interpolate(sampleDef, data);
@@ -400,6 +425,9 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevValue) {
   }
   if (sampleDef.range) {
     return calcRange(sampleDef);
+  }
+  if (sampleDef.velocity) {
+    return calcVelocity(sampleDef, sampleName, prevSample);
   }
   if (sampleDef.scene) {
     return calcScene(sampleDef, freq);
