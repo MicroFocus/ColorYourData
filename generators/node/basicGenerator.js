@@ -504,6 +504,12 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample)
   if (sampleDef.group) {
     return calcGroup(sampleDef, freq);
   }
+  if (sampleDef.GetMostCritical) {
+    return calcMostCritical(sampleDef, sample);
+  }
+  if (sampleDef.GetStatus) { 
+    return calcStatus(sampleDef);
+  }
 }; // end: calcValue
 
 // -------------------------------------------
