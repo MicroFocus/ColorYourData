@@ -250,11 +250,6 @@ const generatePlan = function(scene, freq) {
   };
 };
 
-const generateId = function (defId) {   	
-    const randId = Math.round((Math.random() * defId[1]) % 8);	
-    return randId;	
-}
-
 const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample) {
   const calcRange = function(rangeDef) {
     if (rangeDef._offset === undefined) {
@@ -415,41 +410,6 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample)
     return items;
   }; // end: calcGroup
   
-  const calcStatus = function (sampleDef) {	
-        const id = generateId(sampleDef.GetStatus.Id);	
-        var res = "Unknown";	
-        switch (id) {      	
-            case 0:	
-                res = "Critical";	
-                break;	
-            case 1:	
-                res = "Major";	
-                break;	
-            case 2:	
-                res = "Minor";	
-                break;	
-            case 3:	
-                res = "Warning";	
-                break;	
-            case 4:	
-                res = "Info";	
-                break;	
-            case 5:	
-                res = "OK";	
-                break;	
-            case 6:	
-                res = "Downtime";	
-                break;	
-            case 7:	
-                res = "No Data";	
-                break;	
-            default :	
-                res = "Unknown";	
-                break;  	
-        }	
-        return res;	
-    } // end: calcStatus
-
   let evalObj;
 
   try {
@@ -492,9 +452,6 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample)
   }
   if (sampleDef.group) {
     return calcGroup(sampleDef, freq);
-  }
-  if (sampleDef.GetStatus) { 
-    return calcStatus(sampleDef);
   }
 }; // end: calcValue
 
