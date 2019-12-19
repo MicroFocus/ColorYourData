@@ -29,10 +29,7 @@
           "viewName": ["OprSample"],
           "ciName": ["IT JBoss Cluster"],
           "kpiName": ["System Performance"],
-          "status": {
-              "GetStatus" : {"Id" : [0,1000]}}
-          
-
+          "status": ["Critical","Major","Minor","Warning", "Info","Ok","Down Time","No Data","UnKnown"]
         },
         "frequency": 500, 
         "tolerance": 500,
@@ -45,10 +42,7 @@
           "viewName": ["OprSample"],
           "ciName": ["Employee Self Service"],
           "kpiName": ["Unassigned Events"],
-          "status": {
-              "GetStatus" : {"Id" : [0,1000]}
-          }
-    
+          "status": ["Critical","Major","Minor","Warning", "Info","Ok","Down Time","No Data","UnKnown"]
         },
         "frequency": 500, 
         "tolerance": 500,
