@@ -250,7 +250,12 @@ const generatePlan = function(scene, freq) {
   };
 };
 
-const calcValue = function(sampleDef, sampleName, freq, data, prevSample) {
+const generateId = function (defId) {   	
+    const randId = Math.round((Math.random() * defId[1]) % 8);	
+    return randId;	
+}
+
+const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample) {
   const calcRange = function(rangeDef) {
     if (rangeDef._offset === undefined) {
       rangeDef._offset = 0;
@@ -292,6 +297,24 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample) {
     }
     const range = Math.abs(rangeDef.range[0] - rangeDef.range[1]);
     let val = Math.random() * range + rangeDef.range[0] + rangeDef._offset;
+    	
+    switch(sampleName) {	
+        case "numberOfCritical" :	
+           val = (Math.random() * range) % 2 ;	
+           break;	
+        case "numberOfMajor" :	
+           val = (Math.random() * range ) % 4 ;	
+           break;	
+        case "numberOfMinor" :	
+           val = (Math.random() * range) % 8 ;	
+           break;	
+        case "numberOfNormal" :	
+           val = (Math.random() * range) % 10 ;	
+           break;	
+        case "numberOfUnknown" :	
+           val = (Math.random() * 4);	
+           break;	
+      }
 
     if (rangeDef.format) {
       if (rangeDef.format === 'int') {
@@ -391,6 +414,52 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample) {
 
     return items;
   }; // end: calcGroup
+  
+  const calcMostCritical = function (statusDef, sampleData) {	
+        if (sampleData.numberOfCritical > 0)	
+            return "CRITICAL";	
+        else if (sampleData.numberOfMajor > 0)	
+            return "MAJOR";	
+        else if (sampleData.numberOfMinor > 0)	
+            return "MINOR";	
+        else	
+            return "NORMAL";	
+    }// end: calcMostCritical
+  
+  const calcStatus = function (sampleDef) {	
+        const id = generateId(sampleDef.GetStatus.Id);	
+        var res = "Unknown";	
+        switch (id) {      	
+            case 0:	
+                res = "Critical";	
+                break;	
+            case 1:	
+                res = "Major";	
+                break;	
+            case 2:	
+                res = "Minor";	
+                break;	
+            case 3:	
+                res = "Warning";	
+                break;	
+            case 4:	
+                res = "Info";	
+                break;	
+            case 5:	
+                res = "OK";	
+                break;	
+            case 6:	
+                res = "Downtime";	
+                break;	
+            case 7:	
+                res = "No Data";	
+                break;	
+            default :	
+                res = "Unknown";	
+                break;  	
+        }	
+        return res;	
+    } // end: calcStatus
 
   let evalObj;
 
@@ -528,7 +597,7 @@ jsonfile.readFile(file, (err, obj) => {
     generator._result = generator._result || {};
     const sender = new GenericSender((sample, prevSample) => {
       _.each(_.keys(generator.sample), sampleName => {
-        sample[sampleName] = calcValue(generator.sample[sampleName], sampleName, generator.frequency, generator._result, prevSample);
+        sample[sampleName] = calcValue(generator.sample[sampleName], sampleName, generator.frequency, generator._result, prevSample,sample);
         generator._result[sampleName] = sample[sampleName];
       });
     }, generator.frequency, generator.tolerance, generator.dims, generator.tags);
