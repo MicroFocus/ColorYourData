@@ -415,17 +415,6 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample)
     return items;
   }; // end: calcGroup
   
-  const calcMostCritical = function (statusDef, sampleData) {	
-        if (sampleData.numberOfCritical > 0)	
-            return "CRITICAL";	
-        else if (sampleData.numberOfMajor > 0)	
-            return "MAJOR";	
-        else if (sampleData.numberOfMinor > 0)	
-            return "MINOR";	
-        else	
-            return "NORMAL";	
-    }// end: calcMostCritical
-  
   const calcStatus = function (sampleDef) {	
         const id = generateId(sampleDef.GetStatus.Id);	
         var res = "Unknown";	
@@ -503,9 +492,6 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample)
   }
   if (sampleDef.group) {
     return calcGroup(sampleDef, freq);
-  }
-  if (sampleDef.GetMostCritical) {
-    return calcMostCritical(sampleDef, sample);
   }
   if (sampleDef.GetStatus) { 
     return calcStatus(sampleDef);
