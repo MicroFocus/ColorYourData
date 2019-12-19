@@ -16,7 +16,7 @@
           "numberOfMinor" : {"range": [0,10], "format": "int"},
           "numberOfNormal" : {"range": [0,10], "format": "int"},
           "numberOfUnknown" : {"range": [0,10], "format": "int"},
-          "mostCritical" : {"GetMostCritical" : ["numberOfCritical","numberOFMajor","numberOfMinor"]}
+          "mostCritical" : "(function (data) { if (data.numberOfCritical >0 ) {return 'CRITICAL';} else if (data.numberOfMajor >0 ) {return 'MAJOR';} else if (data.numberOfMinor > 0) {return 'MINOR';} else return 'NORMAL';})"
         },
         "frequency": 500, 
         "tolerance": 500,
