@@ -250,7 +250,7 @@ const generatePlan = function(scene, freq) {
   };
 };
 
-const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample) {
+const calcValue = function(sampleDef, sampleName, freq, data, prevSample) {
   const calcRange = function(rangeDef) {
     if (rangeDef._offset === undefined) {
       rangeDef._offset = 0;
@@ -293,24 +293,6 @@ const calcValue = function(sampleDef, sampleName, freq, data, prevSample,sample)
     const range = Math.abs(rangeDef.range[0] - rangeDef.range[1]);
     let val = Math.random() * range + rangeDef.range[0] + rangeDef._offset;
     	
-    switch(sampleName) {	
-        case "numberOfCritical" :	
-           val = (Math.random() * range) % 2 ;	
-           break;	
-        case "numberOfMajor" :	
-           val = (Math.random() * range ) % 4 ;	
-           break;	
-        case "numberOfMinor" :	
-           val = (Math.random() * range) % 8 ;	
-           break;	
-        case "numberOfNormal" :	
-           val = (Math.random() * range) % 10 ;	
-           break;	
-        case "numberOfUnknown" :	
-           val = (Math.random() * 4);	
-           break;	
-      }
-
     if (rangeDef.format) {
       if (rangeDef.format === 'int') {
         val = Math.round(val + 0.5);
@@ -546,7 +528,7 @@ jsonfile.readFile(file, (err, obj) => {
     generator._result = generator._result || {};
     const sender = new GenericSender((sample, prevSample) => {
       _.each(_.keys(generator.sample), sampleName => {
-        sample[sampleName] = calcValue(generator.sample[sampleName], sampleName, generator.frequency, generator._result, prevSample,sample);
+        sample[sampleName] = calcValue(generator.sample[sampleName], sampleName, generator.frequency, generator._result, prevSample);
         generator._result[sampleName] = sample[sampleName];
       });
     }, generator.frequency, generator.tolerance, generator.dims, generator.tags);
