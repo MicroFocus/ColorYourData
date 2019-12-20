@@ -25,25 +25,13 @@
         "name":"KPI Status",
         "sample": {
           "viewName": "OprSample",
-          "ciName": "IT JBoss Cluster",
-          "kpiName": "System Performance",
+          "ciName": ["IT JBoss Cluster","Employee Self Service"],
+          "kpiName": ["System Performance","Unassigned Events"],
           "status": ["Critical","Major","Minor","Warning", "Info","Ok","DownTime","No Data","UnKnown"]
         },
         "tags":"omi,kpi",
         "dims":"viewName,ciName,kpiName"
-      },
-      {
-        "name":"KPI Status Employee service",
-        "sample": {
-          "viewName": "OprSample",
-          "ciName": "Employee Self Service",
-          "kpiName": "Unassigned Events",
-          "status": ["Critical","Major","Minor","Warning", "Info","Ok","DownTime","No Data","UnKnown"]
-        },
-        "tags":"omi,kpi",
-        "dims":"viewName,ciName,kpiName"
-      }    
-     
+      } 
     ]
   }
   
