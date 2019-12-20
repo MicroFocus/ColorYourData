@@ -18,8 +18,6 @@
           "numberOfUnknown" : {"range": [0,10], "format": "int"},
           "mostCritical" : "(function (data) { if (data.numberOfCritical >0 ) {return 'CRITICAL';} else if (data.numberOfMajor >0 ) {return 'MAJOR';} else if (data.numberOfMinor > 0) {return 'MINOR';} else return 'NORMAL';})"
         },
-        "frequency": 500, 
-        "tolerance": 500,
         "tags":"omi,mdb",
         "dims":"mdb,label,type"
       },
@@ -31,8 +29,6 @@
           "kpiName": "System Performance",
           "status": ["Critical","Major","Minor","Warning", "Info","Ok","DownTime","No Data","UnKnown"]
         },
-        "frequency": 500, 
-        "tolerance": 500,
         "tags":"omi,kpi",
         "dims":"viewName,ciName,kpiName"
       },
@@ -44,8 +40,6 @@
           "kpiName": "Unassigned Events",
           "status": ["Critical","Major","Minor","Warning", "Info","Ok","DownTime","No Data","UnKnown"]
         },
-        "frequency": 500, 
-        "tolerance": 500,
         "tags":"omi,kpi",
         "dims":"viewName,ciName,kpiName"
       }    
