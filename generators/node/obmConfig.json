@@ -8,9 +8,9 @@
       {
         "name":"Health Status",
         "sample": {
-          "mdb": ["OBM Health Status"],
-          "label": ["Overall"],
-          "type": ["PIE"],       
+          "mdb": "OBM Health Status",
+          "label": "Overall",
+          "type": "PIE",       
           "numberOfCritical" : {"range": [0,10], "format": "int"},
           "numberOfMajor" : {"range": [0,10], "format": "int"},
           "numberOfMinor" : {"range": [0,10], "format": "int"},
@@ -26,10 +26,10 @@
       {
         "name":"KPI Status",
         "sample": {
-          "viewName": ["OprSample"],
-          "ciName": ["IT JBoss Cluster"],
-          "kpiName": ["System Performance"],
-          "status": ["Critical","Major","Minor","Warning", "Info","Ok","Down Time","No Data","UnKnown"]
+          "viewName": "OprSample",
+          "ciName": "IT JBoss Cluster",
+          "kpiName": "System Performance",
+          "status": ["Critical","Major","Minor","Warning", "Info","Ok","DownTime","No Data","UnKnown"]
         },
         "frequency": 500, 
         "tolerance": 500,
@@ -39,10 +39,10 @@
       {
         "name":"KPI Status Employee service",
         "sample": {
-          "viewName": ["OprSample"],
-          "ciName": ["Employee Self Service"],
-          "kpiName": ["Unassigned Events"],
-          "status": ["Critical","Major","Minor","Warning", "Info","Ok","Down Time","No Data","UnKnown"]
+          "viewName": "OprSample",
+          "ciName": "Employee Self Service",
+          "kpiName": "Unassigned Events",
+          "status": ["Critical","Major","Minor","Warning", "Info","Ok","DownTime","No Data","UnKnown"]
         },
         "frequency": 500, 
         "tolerance": 500,
