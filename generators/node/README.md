@@ -187,4 +187,11 @@ node ao_bank_gen.js host:port ApiKey
 This generator drives the AO-Bank sample dashboards available from the
 [Micro Focus Marketplace](https://marketplace.microfocus.com/itom/category/opsb?product=Business%20Value%20Dashboard&version=All%20versions&company=All%20companies)
 
+## config file for OBM sample dasboard
+### Running
+<pre>
+node basicGenerator.js -f obmConfig.json
+</pre>
+This config file drives the sample OBM dashboard available from the [Micro Focus Marketplace](https://marketplace.microfocus.com/itom/category/opsb?product=Business%20Value%20Dashboard&version=All%20versions&company=All%20companies)
+
 
