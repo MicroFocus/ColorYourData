@@ -189,9 +189,11 @@ This generator drives the AO-Bank sample dashboards available from the
 
 ## config file for OBM sample dasboard
 ### Running
+User can download the data generator executable files for Windows, Linux and MacOS from the repository.
 <pre>
-node basicGenerator.js -f obmConfig.json
+basicGenerator -f obmConfig.json
 </pre>
 This config file drives the sample OBM dashboard available from the [Micro Focus Marketplace](https://marketplace.microfocus.com/itom/category/opsb?product=Business%20Value%20Dashboard&version=All%20versions&company=All%20companies)
+
 
 
