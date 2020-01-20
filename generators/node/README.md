@@ -189,7 +189,7 @@ This generator drives the AO-Bank sample dashboards available from the
 
 ## config file for OBM sample dasboard
 ### Running
-User can download the executable files for Windows, Linux and MacOS from the repository.
+User can download the data generator executable files for Windows, Linux and MacOS from the repository.
 <pre>
 basicGenerator -f obmConfig.json
 </pre>
