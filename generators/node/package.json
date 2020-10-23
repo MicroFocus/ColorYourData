@@ -16,6 +16,6 @@
     "optimist": "0.3.x",
     "proc-noise": "0.0.1",
     "request": "latest",
-    "xml2js": "~0.4.4"
+    "xml2js": "~0.4.23"
   }
 }
