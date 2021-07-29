@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 /* eslint-disable no-console, no-process-exit, line-comment-position, sort-vars, no-eval */
 
@@ -460,7 +460,7 @@ const GenericSender = function(fun, delay, tolerance, dims, tags) {
     if (prefix) {
       urlStr += '/' + prefix;
     }
-    urlStr += '/api/submit/' + apiKey;
+    urlStr += '/api/submit';
 
     if (!_.isEmpty(dims)) {
       urlStr += '/dims/' + dims;
@@ -477,7 +477,7 @@ const GenericSender = function(fun, delay, tolerance, dims, tags) {
         request.post({
           url: urlStr,
           headers: {
-            'X-ApiKey': apiKey
+            'x-api-key': apiKey
           },
           body: evt,
           json: true,
