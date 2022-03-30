@@ -50,7 +50,7 @@ while(1):
     json_data = json.dumps(list_obj)
 
     #Post request to BVD instance, change dims accordingly, for e.g /dims/querytype
-    raw_data = postRequest(bvdUrl + '/api/submit/' + bvdApiKey + '/dims/querytype', [{'key':'Content-Type', 'value':'application/json'}], json.dumps(jsonDataForBVD).encode('ascii'))
+    raw_data = postRequest(bvdUrl + '/api/submit/' + bvdApiKey + '/dims/querytype', [{'key':'Content-Type', 'value':'application/json'}], json.dumps(list_obj).encode('ascii'))   
     print (list_obj)
     time.sleep(sleep)
     conn.close()
